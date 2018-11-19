@@ -2,6 +2,7 @@ package cartGame.combat.player;
 
 import amyGraphics.Animation;
 import amyGraphics.Texture;
+import movement.Obstacle;
 import movement.SelfPropelled;
 import movement.mathDS.Vector.MalformedVectorException;
 
@@ -205,6 +206,12 @@ public class Player extends SelfPropelled {
 	public void collision() {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void collision(Obstacle o) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
