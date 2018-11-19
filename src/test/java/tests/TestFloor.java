@@ -1,0 +1,26 @@
+package tests;
+
+import amyGraphics.Texture;
+import cartGame.io.ImageCache;
+import movement.Obstacle;
+
+public class TestFloor extends Obstacle {
+
+	public TestFloor() throws MalformedEntityException {
+		setCoR(1);
+		
+		setDimensions(new double[] {8000, 200, 2000});
+		setPosition(new float[] {-4000, -200, -1000});
+		
+		Texture texture = new Texture(ImageCache.getImage("graphics/combat/main test/arena/green.png"));
+		addTexture(texture);
+		setActiveTexture(texture);
+	}
+	
+	@Override
+	public void collision() {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

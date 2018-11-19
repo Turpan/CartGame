@@ -1,0 +1,45 @@
+package tests;
+
+import amyGraphics.Texture;
+import cartGame.io.ImageCache;
+import movement.Obstacle;
+
+public class TestWall extends Obstacle {
+	
+	private static final double[][] dimensions = 
+		{{200, 1000, 2000},
+		{7600, 1000, 200},
+		{200, 1000, 2000},
+		{7600, 1000, 200}};
+	
+	private static final float[][] positions =
+		{{-4000, 0, -1000},
+		{-3800, 0, 800},
+		{3800, 0, -1000},
+		{-3800, 0, -1000}};
+	
+	public TestWall(int wall) throws MalformedEntityException {
+		if (wall > 3) wall = 3;
+		if (wall < 0) wall = 0;
+		setCoR(1);
+		
+		setDimensions(dimensions[wall]);
+		setPosition(positions[wall]);
+		
+		Texture texture;
+		if (wall != 3) {
+			texture = new Texture(ImageCache.getImage("graphics/combat/main test/arena/green.png"));
+		} else {
+			texture = new Texture(ImageCache.getImage("graphics/editor/blank.png"));
+		}
+		addTexture(texture);
+		setActiveTexture(texture);
+	}
+
+	@Override
+	public void collision() {
+		// TODO Auto-generated method stub
+
+	}
+
+}
