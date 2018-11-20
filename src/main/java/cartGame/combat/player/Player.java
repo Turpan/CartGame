@@ -2,11 +2,18 @@ package cartGame.combat.player;
 
 import amyGraphics.Animation;
 import amyGraphics.Texture;
+import movement.Movable;
 import movement.Obstacle;
 import movement.SelfPropelled;
 import movement.mathDS.Vector.MalformedVectorException;
 
 public class Player extends SelfPropelled {
+	
+	private static final double MASS =5;
+	private static final double BASEMOVEFORCE =2000;
+	private static final double COEFFICIENT_OF_RESTITUTION = 0.05;	//'bounciness' Used for collisions. See Controllable. Not the whole story, as I've attempted to disallow objects enterring other objects, regardless of CoR
+	private static final double COEFFICIENT_OF_DRAG = 0.1;			//coefficient of proportionality between quadratic drag and speed
+	private static final double  COEFFICIENT_OF_FRICTION = 8; 	//the coefficient of proportionality between the constant drag and mass
 	
 	private static final int UP = 0;
 	private static final int DOWN = 2;
@@ -28,7 +35,11 @@ public class Player extends SelfPropelled {
 
 	public Player() throws MalformedVectorException {
 		super();
-		// TODO Auto-generated constructor stub
+		setBaseMoveForce(BASEMOVEFORCE);
+		setMass(MASS);
+		setCoF(COEFFICIENT_OF_FRICTION);
+		setCoD(COEFFICIENT_OF_DRAG);
+		setCoR(COEFFICIENT_OF_RESTITUTION);
 	}
 	
 	public void updateMovementTexture(int x, int y) {
@@ -201,15 +212,14 @@ public class Player extends SelfPropelled {
 	public Texture getRightIdle() {
 		return rightIdle;
 	}
-
 	@Override
-	public void collision() {
+	public void collision(Obstacle o) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
-	public void collision(Obstacle o) {
+	public void collision(Movable m) {
 		// TODO Auto-generated method stub
 		
 	}

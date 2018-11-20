@@ -7,9 +7,9 @@ import movement.mathDS.Vector.MalformedVectorException;
 public class Arena extends Room {
 	
 	private static final double[][][] directionTable = new double[][][]
-			{{{0.7071,0.7071,0}, {0,1,0}, {-0.7071,0.7071,0}},
-			{{1,0,0},null, {-1,0,0}},
-			{{0.7071,-0.7071,0}, {0,-1,0}, {-0.7071,-0.7071,0}}};
+			{{{-0.7071,0,0.7071}, {0,0,1}, {0.7071,0,0.7071}},
+			{{-1,0,0},null, {1,0,0}},
+			{{-0.7071,0,-0.7071}, {0,0,-1}, {0.7071,0,-0.7071}}};
 	
 	private Player player;
 	

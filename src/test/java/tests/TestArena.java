@@ -5,6 +5,7 @@ import cartGame.combat.player.Arena;
 import cartGame.combat.player.Player;
 import movement.Entity;
 import movement.Entity.MalformedEntityException;
+import movement.Shapes.Ellipse;
 import movement.mathDS.Vector.MalformedVectorException;
 
 public class TestArena extends Arena {
@@ -16,6 +17,7 @@ public class TestArena extends Arena {
 			player.setPosition(new float[] {0, 0, 0});
 			player.setDimensions(new double[] {1000, 1000, 200});
 			setPlayer(player);
+			player.setOutline(new Ellipse(player.getDimensions()));
 			Entity dirLight = new TestDirLight();
 			dirLight.setPosition(new float[] {0, 8000, 0});
 			dirLight.setDimensions(new double[] {0, 0, 0});

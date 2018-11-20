@@ -2,7 +2,9 @@ package tests;
 
 import amyGraphics.Texture;
 import cartGame.io.ImageCache;
+import movement.Movable;
 import movement.Obstacle;
+import movement.Shapes.BigRectangle;
 
 public class TestWall extends Obstacle {
 	
@@ -25,6 +27,7 @@ public class TestWall extends Obstacle {
 		
 		setDimensions(dimensions[wall]);
 		setPosition(positions[wall]);
+		setOutline(new BigRectangle(getDimensions()));
 		
 		Texture texture;
 		if (wall != 3) {
@@ -37,9 +40,9 @@ public class TestWall extends Obstacle {
 	}
 
 	@Override
-	public void collision() {
+	public void collision(Movable m) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 }

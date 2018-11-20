@@ -2,7 +2,9 @@ package tests;
 
 import amyGraphics.Texture;
 import cartGame.io.ImageCache;
+import movement.Movable;
 import movement.Obstacle;
+import movement.Shapes.BigRectangle;
 
 public class TestFloor extends Obstacle {
 
@@ -15,12 +17,14 @@ public class TestFloor extends Obstacle {
 		Texture texture = new Texture(ImageCache.getImage("graphics/combat/main test/arena/green.png"));
 		addTexture(texture);
 		setActiveTexture(texture);
+		setOutline(new BigRectangle(getDimensions()));
 	}
-	
+
 	@Override
-	public void collision() {
+	public void collision(Movable m) {
 		// TODO Auto-generated method stub
 		
 	}
+	
 
 }
