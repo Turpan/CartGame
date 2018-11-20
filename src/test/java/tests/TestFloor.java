@@ -8,11 +8,11 @@ import movement.Shapes.BigRectangle;
 
 public class TestFloor extends Obstacle {
 
-	public TestFloor() throws MalformedEntityException {
+	public TestFloor() {
 		setCoR(1);
 		
 		setDimensions(new double[] {8000, 200, 2000});
-		setPosition(new float[] {-4000, -200, -1000});
+		setPosition(new double[] {-4000, -200, -1000});
 		
 		Texture texture = new Texture(ImageCache.getImage("graphics/combat/main test/arena/green.png"));
 		addTexture(texture);

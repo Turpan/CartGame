@@ -3,17 +3,14 @@ package tests;
 import java.util.ArrayList;
 import java.util.List;
 
-import OpenGLTests.CommunismRoom;
 import OpenGLTests.GraphicsTestEnvironment;
 import amyGLGraphics.IO.MouseEvent;
 import amyGLGraphics.IO.MouseEventAction;
 import amyInterface.Button;
 import amyInterface.Component;
 import amyInterface.InterfaceController;
-import cartGame.travel.graphics.TravelGraphic;
 import cartGame.ui.map.MapController;
 import cartGame.ui.travel.TravelController;
-import movement.Entity.MalformedEntityException;
 import movement.Room;
 
 public class GabbyTestEnvironment extends GraphicsTestEnvironment{

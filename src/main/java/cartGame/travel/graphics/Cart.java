@@ -1,10 +1,6 @@
 package cartGame.travel.graphics;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
 
 import amyGraphics.Texture;
 import cartGame.io.ImageCache;
@@ -15,14 +11,14 @@ public class Cart extends Entity {
 	
 	boolean up;
 	
-	public Cart() throws MalformedEntityException {
+	public Cart() {
 		super();
 		
 		Texture texture = loadImage();
 		addTexture(texture);
 		setActiveTexture(texture);
 		setDimensions(new double[] {750, 1000, 0});
-		setPosition(new float[] {4000, 500, 0});
+		setPosition(new double[] {4000, 500, 0});
 	}
 	
 	public Texture loadImage() {
@@ -34,8 +30,8 @@ public class Cart extends Entity {
 	}
 	
 	public void bounce() {
-		float[] position = getPosition();
-		float y = position[1];
+		double[] position = getPosition();
+		double y = position[1];
 		
 		if (up) {
 			y -= BOUNCE;

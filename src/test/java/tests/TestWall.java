@@ -14,13 +14,13 @@ public class TestWall extends Obstacle {
 		{200, 1000, 2000},
 		{7600, 1000, 200}};
 	
-	private static final float[][] positions =
+	private static final double[][] positions =
 		{{-4000, 0, -1000},
 		{-3800, 0, 800},
 		{3800, 0, -1000},
 		{-3800, 0, -1000}};
 	
-	public TestWall(int wall) throws MalformedEntityException {
+	public TestWall(int wall) {
 		if (wall > 3) wall = 3;
 		if (wall < 0) wall = 0;
 		setCoR(1);

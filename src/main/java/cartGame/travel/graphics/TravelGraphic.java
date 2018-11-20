@@ -9,7 +9,6 @@ import java.util.List;
 import javax.imageio.ImageIO;
 
 import amyGraphics.Texture;
-import movement.Entity.MalformedEntityException;
 import movement.Room;
 
 public class TravelGraphic extends Room {
@@ -30,15 +29,9 @@ public class TravelGraphic extends Room {
 		setBackground(loadBackground());
 		
 		backdrops = new ArrayList<Backdrop>();
-		
-		try {
-			cart = new Cart();
+		cart = new Cart();
 			
-			sun = new Sun();
-		} catch (MalformedEntityException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		sun = new Sun();
 		
 		addEntity(cart);
 		addEntity(sun);
@@ -52,27 +45,19 @@ public class TravelGraphic extends Room {
 			tick = 0;
 			cart.bounce();
 		}
-		
-		try {
-			for (Backdrop backdrop : backdrops) {
-				backdrop.scroll();
-			}
-		} catch (MalformedEntityException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			
-			System.out.println("big whoopsies");
+		for (Backdrop backdrop : backdrops) {
+			backdrop.scroll();
 		}
 	}
 	
-	public void addBackdrop(Texture texture, float start, double[] dimensions) throws MalformedEntityException {
+	public void addBackdrop(Texture texture, float start, double[] dimensions) {
 		addBackdrop(texture, start, dimensions, 0);
 	}
 	
-	public void addBackdrop(Texture texture, float start, double[] dimensions, int depth) throws MalformedEntityException {
+	public void addBackdrop(Texture texture, float start, double[] dimensions, int depth) {
 		for (int i=0; i<BACKDROPCOUNT; i++) {
 			Backdrop backdrop = new Backdrop(texture, start, dimensions, depth);
-			float[] pos = backdrop.getPosition();
+			double[] pos = backdrop.getPosition();
 			pos[0] += (0 - (Backdrop.WIDTH * i)) + start;
 			backdrops.add(backdrop);
 			addEntity(backdrop);

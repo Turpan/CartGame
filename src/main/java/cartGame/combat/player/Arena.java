@@ -2,7 +2,6 @@ package cartGame.combat.player;
 
 import amyGLGraphics.IO.EventManager;
 import movement.Room;
-import movement.mathDS.Vector.MalformedVectorException;
 
 public class Arena extends Room {
 	
@@ -50,21 +49,15 @@ public class Arena extends Room {
 		int y = getMovementY();
 		if (player != null) player.updateMovementTexture(x, y);
 		if (EventManager.getManagerInstance().getMoveUp().isPressed() ||
-				EventManager.getManagerInstance().getMoveDown().isPressed() || 
-				EventManager.getManagerInstance().getMoveLeft().isPressed() ||
-				EventManager.getManagerInstance().getMoveRight().isPressed() &&
-				player != null) {
-			try {
-				var direction = directionTable[y][x];
-				if (direction != null) { 
-					player.locomote(direction);
-				}
-			} catch (MalformedVectorException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			EventManager.getManagerInstance().getMoveDown().isPressed() || 
+			EventManager.getManagerInstance().getMoveLeft().isPressed() ||
+			EventManager.getManagerInstance().getMoveRight().isPressed() &&
+			player != null) {
+			var direction = directionTable[y][x];
+			if (direction != null) { 
+				player.locomote(direction);
 			}
-		}
-		
+		}		
 		super.tick();
 	}
 }

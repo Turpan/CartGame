@@ -3,13 +3,11 @@ package tests;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.Random;
 
 import javax.imageio.ImageIO;
 
 import amyGraphics.Texture;
 import cartGame.travel.graphics.TravelGraphic;
-import movement.Entity.MalformedEntityException;
 
 public class TestForest extends TravelGraphic {
 	
@@ -25,25 +23,19 @@ public class TestForest extends TravelGraphic {
 		double[] treeDimen = new double[] {600, 2000, 0};
 		double[] farmDimen = new double[] {16000, 8000, 0};
 		
-		try {
-			for (int i=0; i<2; i++) {
-				float last = 0;
-				float start = (WIDTH / TREECOUNT);
-				double heightquot = i * 0.2;
-				treeDimen[1] *= 1 - heightquot;
-				
-				for (int j=0; j<TREECOUNT; j++) {
-					
-					last += start;
-					
-					addBackdrop(tree, last, treeDimen.clone(), i);
-				}
-			}
+		for (int i=0; i<2; i++) {
+			float last = 0;
+			float start = (WIDTH / TREECOUNT);
+			double heightquot = i * 0.2;
+			treeDimen[1] *= 1 - heightquot;
 			
-			addBackdrop(farm, 0, farmDimen, 2);
-		} catch (MalformedEntityException e) {
-			System.exit(-1);
+			for (int j=0; j<TREECOUNT; j++) {
+				last += start;
+				addBackdrop(tree, last, treeDimen.clone(), i);
+			}
 		}
+		
+		addBackdrop(farm, 0, farmDimen, 2);
 	}
 	
 	public Texture loadTree() {

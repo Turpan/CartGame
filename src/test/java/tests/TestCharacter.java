@@ -3,11 +3,10 @@ package tests;
 import amyGraphics.Texture;
 import cartGame.combat.player.Player;
 import cartGame.io.ImageCache;
-import movement.mathDS.Vector.MalformedVectorException;
 
 public class TestCharacter extends Player {
 
-	public TestCharacter() throws MalformedVectorException {
+	public TestCharacter() {
 		super();
 		setTextures();
 	}

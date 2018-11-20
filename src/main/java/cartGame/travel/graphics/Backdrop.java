@@ -6,16 +6,16 @@ import movement.Entity;
 public class Backdrop extends Entity {
 	
 	static final public int WIDTH = 16000;
-	static final public float SPEED = 15;
+	static final public double SPEED = 15;
 	static final public int DEPTH = 2000;
 	
-	private float start;
+	private double start;
 	private int depth;
 	
-	public Backdrop(Texture texture, float start, double[] dimensions) throws MalformedEntityException {
+	public Backdrop(Texture texture, double start, double[] dimensions) {
 		super();
 		
-		setPosition(new float[] {start, 0, (DEPTH * (depth + 1))});
+		setPosition(new double[] {start, 0, (DEPTH * (depth + 1))});
 		
 		addTexture(texture);
 		setActiveTexture(texture);
@@ -23,23 +23,23 @@ public class Backdrop extends Entity {
 		setDepth(0);
 	}
 	
-	public Backdrop(Texture texture, float start, double[] dimensions, int depth) throws MalformedEntityException {
+	public Backdrop(Texture texture, double start, double[] dimensions, int depth) {
 		this(texture, start, dimensions);
 		
 		setDepth(depth);
 	}
 
-	public void setStart(float start) {
+	public void setStart(double start) {
 		this.start = start;
 	}
 	
-	public float getStart() {
+	public double getStart() {
 		return start;
 	}
 	
-	public void setDepth(int depth) throws MalformedEntityException {
-		float[] pos = getPosition();
-		float z = (DEPTH * (depth + 1));
+	public void setDepth(int depth) {
+		double[] pos = getPosition();
+		double z = (DEPTH * (depth + 1));
 		pos[2] = z;
 		
 		this.depth = depth;
@@ -49,9 +49,9 @@ public class Backdrop extends Entity {
 		return depth;
 	}
 	
-	public void scroll() throws MalformedEntityException {
-		float[] pos = getPosition();
-		float x = pos[0];
+	public void scroll() {
+		double[] pos = getPosition();
+		double x = pos[0];
 		x += (SPEED / (depth + 1));
 		
 		if (x >= (WIDTH + start)) {

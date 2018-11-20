@@ -5,7 +5,6 @@ import amyGraphics.Texture;
 import movement.Movable;
 import movement.Obstacle;
 import movement.SelfPropelled;
-import movement.mathDS.Vector.MalformedVectorException;
 
 public class Player extends SelfPropelled {
 	
@@ -33,7 +32,7 @@ public class Player extends SelfPropelled {
 	private int lastX;
 	private int lastY;
 
-	public Player() throws MalformedVectorException {
+	public Player() {
 		super();
 		setBaseMoveForce(BASEMOVEFORCE);
 		setMass(MASS);
