@@ -19,7 +19,14 @@ public class TestFloor extends Obstacle {
 		setActiveTexture(texture);
 		setOutline(new BigRectangle(getDimensions()));
 	}
-
+	protected TestFloor(TestFloor tf) {
+		super(tf);
+	}
+	
+	@Override
+	public TestFloor clone() {
+		return new TestFloor(this);
+	}
 	@Override
 	public void collision(Movable m) {
 		// TODO Auto-generated method stub

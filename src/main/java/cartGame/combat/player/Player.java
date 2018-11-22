@@ -40,7 +40,19 @@ public class Player extends SelfPropelled {
 		setCoD(COEFFICIENT_OF_DRAG);
 		setCoR(COEFFICIENT_OF_RESTITUTION);
 	}
+	protected Player(Player player) {
+		super(player);
+		setBaseMoveForce(player.getBaseMoveForce());
+		setMass(player.getMass());
+		setCoF(player.getCoF());
+		setCoD(player.getCoD());
+		setCoR(player.getCoR());
+	}
 	
+	@Override
+	public Player clone(){
+	return new Player(this);	
+	}	
 	public void updateMovementTexture(int x, int y) {
 		if (x == RIGHT) {
 			moveRight();

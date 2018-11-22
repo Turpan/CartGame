@@ -38,7 +38,14 @@ public class TestWall extends Obstacle {
 		addTexture(texture);
 		setActiveTexture(texture);
 	}
-
+	protected TestWall(TestWall tw) {
+		super(tw);
+	}
+	
+	@Override
+	public TestWall clone() {
+		return new TestWall(this);
+	}
 	@Override
 	public void collision(Movable m) {
 		// TODO Auto-generated method stub
