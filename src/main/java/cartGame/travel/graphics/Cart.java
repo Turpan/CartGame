@@ -22,10 +22,7 @@ public class Cart extends Entity {
 	}
 	
 	public Texture loadImage() {
-		BufferedImage img = ImageCache.getImage("graphics/cart.png");
-		Texture texture = new Texture(img);
-		texture.setWidth(img.getWidth());
-		texture.setHeight(img.getHeight());
+		Texture texture = ImageCache.getTexture("graphics/cart.png");
 		return texture;
 	}
 	

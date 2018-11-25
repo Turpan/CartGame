@@ -30,7 +30,7 @@ public class Town {
 	
 	public void loadImage() {
 		if (icon == null) {
-			icon = new Texture(ImageCache.getImage(iconLocation));
+			icon = ImageCache.getTexture(iconLocation);
 		}
 	}
 	

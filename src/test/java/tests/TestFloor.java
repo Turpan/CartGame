@@ -14,7 +14,7 @@ public class TestFloor extends Obstacle {
 		setDimensions(new double[] {8000, 200, 2000});
 		setPosition(new double[] {-4000, -200, -1000});
 		
-		Texture texture = new Texture(ImageCache.getImage("graphics/combat/main test/arena/green.png"));
+		Texture texture = ImageCache.getTexture("graphics/combat/main test/arena/green.png");
 		addTexture(texture);
 		setActiveTexture(texture);
 		setOutline(new BigRectangle(getDimensions()));

@@ -19,11 +19,11 @@ public class TownButton extends Button {
 	}
 	
 	private Texture getTexture() {
-		return new Texture(ImageCache.getImage("graphics/ui/map/town.png"));
+		return ImageCache.getTexture("graphics/ui/map/town.png");
 	}
 	
 	private Texture getPressedTexture() {
-		return new Texture(ImageCache.getImage("graphics/ui/map/town-pressed.png"));
+		return ImageCache.getTexture("graphics/ui/map/town-pressed.png");
 	}
 
 }

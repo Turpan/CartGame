@@ -10,21 +10,25 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 
 import amyGraphics.Animation;
-import amyGraphics.Animation.MalformedAnimationException;
+import amyGraphics.Texture;
 import lucyAnimation.LucyIO;
 
 public class ImageCache {
-	private static Map<String, BufferedImage> images = new HashMap<String, BufferedImage>();
+	private static Map<String, Texture> textures = new HashMap<String, Texture>();
 	private static Map<String, Animation> animations = new HashMap<String, Animation>();
 	
 	public static Animation getAnimation(String imageFile) {
+		if (imageFile == null) {
+			imageFile = "";
+		}
+		
 		Animation anim = animations.get(imageFile);
 		
 		if (anim == null) {
-			return loadAnimation(imageFile);
+			return new Animation(loadAnimation(imageFile));
 		}
 		
-		return anim;
+		return new Animation(anim);
 	}
 	
 	private static Animation loadAnimation(String imageFile) {
@@ -33,11 +37,7 @@ public class ImageCache {
 		if (anim == null) {
 			BufferedImage image = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
 			image.setRGB(0, 0, Color.BLACK.getRGB());
-			try {
-				anim = new Animation(image, 1, 1);
-			} catch (MalformedAnimationException e) {
-				anim = null;
-			}
+			anim = new Animation(image, 1, 1);
 		}
 		
 		animations.put(imageFile, anim);
@@ -45,17 +45,25 @@ public class ImageCache {
 		return anim;
 	}
 	
-	public static BufferedImage getImage(String imageFile) {
-		BufferedImage image = images.get(imageFile);
-		
-		if (image == null) {
-			return loadImage(imageFile);
+	public static Texture getTexture(String imageFile) {
+		if (imageFile == null) {
+			imageFile = "";
 		}
 		
-		return image;
+		if (imageFile.toLowerCase().endsWith(".lcy")) {
+			return loadAnimation(imageFile);
+		}
+		
+		Texture texture = textures.get(imageFile);
+		
+		if (texture == null) {
+			return new Texture(loadTexture(imageFile));
+		}
+		
+		return new Texture(texture);
 	}
 	
-	private static BufferedImage loadImage(String imageFile) {
+	private static Texture loadTexture(String imageFile) {
 		BufferedImage image;
 		try {
 			image = ImageIO.read(new File(imageFile));
@@ -63,13 +71,14 @@ public class ImageCache {
 			image = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
 			image.setRGB(0, 0, Color.BLACK.getRGB());
 		}
+		Texture texture = new Texture(image);
 		
-		images.put(imageFile, image);
+		textures.put(imageFile, texture);
 		
-		return image;
+		return texture;
 	}
 	
 	public static void removeImage(String imageFile) {
-		images.remove(imageFile);
+		textures.remove(imageFile);
 	}
 }

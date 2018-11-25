@@ -31,9 +31,9 @@ public class TestWall extends Obstacle {
 		
 		Texture texture;
 		if (wall != 3) {
-			texture = new Texture(ImageCache.getImage("graphics/combat/main test/arena/green.png"));
+			texture = ImageCache.getTexture("graphics/combat/main test/arena/green.png");
 		} else {
-			texture = new Texture(ImageCache.getImage("graphics/editor/blank.png"));
+			texture = ImageCache.getTexture("graphics/editor/blank.png");
 		}
 		addTexture(texture);
 		setActiveTexture(texture);
