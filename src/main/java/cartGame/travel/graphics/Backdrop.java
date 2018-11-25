@@ -28,7 +28,17 @@ public class Backdrop extends Entity {
 		
 		setDepth(depth);
 	}
-
+	
+	protected Backdrop(Backdrop bd) {
+		super(bd);
+		setStart(bd.getStart());
+		setDepth(bd.getDepth());
+	}
+	
+	@Override
+	public Backdrop clone() {
+		return new Backdrop(this);
+	}
 	public void setStart(double start) {
 		this.start = start;
 	}

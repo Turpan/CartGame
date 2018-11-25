@@ -17,5 +17,13 @@ public class Sun extends Light {
 		setDiffuse(0.7);
 		setSpecular(0.7);
 	}
+	protected Sun(Sun sun) {
+		super(sun);
+	}
+	
+	@Override
+	public Sun clone() {
+		return new Sun(this);
+	}
 
 }

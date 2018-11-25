@@ -20,7 +20,15 @@ public class Cart extends Entity {
 		setDimensions(new double[] {750, 1000, 0});
 		setPosition(new double[] {4000, 500, 0});
 	}
+	protected Cart (Cart cart) {
+		super(cart);
+		up = cart.up;
+	}
 	
+	@Override
+	public Cart clone() {
+		return new Cart(this);
+	}
 	public Texture loadImage() {
 		Texture texture = ImageCache.getTexture("graphics/cart.png");
 		return texture;
