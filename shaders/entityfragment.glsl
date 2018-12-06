@@ -47,11 +47,6 @@ in VS_OUT {
 	vec4 dirLightSpacePosition;
 } fs_in;
 
-in vec4 passColour;
-in vec3 passNormal;
-in vec2 passTexcoord;
-in vec3 fragPosition;
-
 out vec4 outColour;
 
 float dirLightShadow(vec4 dirLightFragPosition, vec3 normal, vec3 lightDirection) {
@@ -65,7 +60,7 @@ float dirLightShadow(vec4 dirLightFragPosition, vec3 normal, vec3 lightDirection
 	
 	float currentDepth = projCoords.z;
 	
-	float bias = max(0.05 * (1.0 - dot(normal, lightDirection)), 0.005);
+	float bias = max(0.005 * (1.0 - dot(normal, lightDirection)), 0.0005);
 	
 	float shadow = 0.0;
 	vec2 texelSize = 1.0 / textureSize(dirShadowMap, 0);
@@ -78,6 +73,9 @@ float dirLightShadow(vec4 dirLightFragPosition, vec3 normal, vec3 lightDirection
 	}
 	
 	shadow /= 9.0;
+	
+	//float pcfDepth = texture(dirShadowMap, projCoords.xy).r;
+	//shadow += (currentDepth - bias) > pcfDepth ? 1.0 : 0.0;
 	
 	return shadow;
 }

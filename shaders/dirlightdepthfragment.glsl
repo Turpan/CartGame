@@ -22,7 +22,7 @@ float calculateMoment2(float depth) {
 void main(void) {
 	vec4 fragColour = texture(texture_diffuse, fs_in.texcoord);
 	
-	if (fragColour.a != 1.0) {
+	if (fragColour.a <= 0.0) {
 		discard;
 	}
 	
@@ -36,6 +36,6 @@ void main(void) {
 		moment2 = calculateMoment2(depth);
 	}
 	
-	//Still have to output vec4, even only two channels are written to
+	//Still have to output vec4, even if only two channels are written to
 	colour = vec4(moment1, moment2, 1.0, 1.0);
 }
