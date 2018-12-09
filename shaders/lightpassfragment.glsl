@@ -40,8 +40,6 @@ uniform bool softshadows;
 
 uniform float farPlane;
 
-uniform float gamma;
-
 out vec4 outColour;
 
 vec2 xyzToUV(vec3 v) {
@@ -236,11 +234,6 @@ vec3 calculateDirLight(DirLight light, vec3 normal, vec3 viewDirection, vec4 lig
 	return (ambient + ((1.0 - shadow) * (diffuse + specular)));
 }
 
-vec4 gammaCorrection(vec4 fragColour) {
-	fragColour.rgb = pow(fragColour.rgb, vec3(1.0/gamma));
-	return fragColour;
-}
-
 void main(void) {
 	vec3 fragPosition = texture(position_texture, passTexcoord).rgb;
 	vec3 fragNormal = texture(normal_texture, passTexcoord).rgb;
@@ -256,9 +249,4 @@ void main(void) {
 	}
 	
 	outColour = vec4((fragColour * result), 1.0);
-	//outColour = vec4(dirLightSpacePosition.rgb, 1.0);
-	outColour = gammaCorrection(outColour);
-	//outColour = vec4(vec3(texture(dirShadowMap, passTexcoord).r), 1.0);
-	
-	//outColour = vec4(vec3(texture(position_texture, passTexcoord).a), 1.0);
 }

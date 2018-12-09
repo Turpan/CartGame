@@ -43,10 +43,10 @@ public class GabbyTestEnvironment extends GraphicsTestEnvironment{
 	protected List<Room> getRooms() {
 		List<Room> rooms = new ArrayList<Room>();
 		
-		/*room1 = new TestForest();
-		rooms.add(room1);
+		Room room1 = new TestForest();
+		//rooms.add(room1);
 		
-		try {
+		/*try {
 			room2 = new CommunismRoom();
 			rooms.add(room2);
 		} catch (MalformedEntityException e) {

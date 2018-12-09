@@ -53,6 +53,11 @@ public class Player extends SelfPropelled {
 		setCoF(player.getCoF());
 		setCoD(player.getCoD());
 		setCoR(player.getCoR());
+		setTextureLocations(player.getTextureLocations());
+		setAbility1(player.getAbility1());
+		setAbility2(player.getAbility2());
+		setAbility3(player.getAbility3());
+		loadTextures();
 	}
 	
 	@Override
@@ -163,6 +168,22 @@ public class Player extends SelfPropelled {
 	public String[] getTextureLocations() {
 		return textureLocations;
 	}
+	
+	public void setTextureLocations(String[] textureLocations) {
+		int last = 0;
+		for (int i=0; i<textureLocations.length; i++) {
+			if (i >= 8) {
+				break;
+			}
+			
+			this.textureLocations[i] = textureLocations[i];
+			last = i;
+		}
+		
+		for (int i=last+1; i<8; i++) {
+			this.textureLocations[i] = null;
+		}
+	}
 
 	public void moveUp() {
 		setActiveTexture(movementTextures[0]);
@@ -206,17 +227,17 @@ public class Player extends SelfPropelled {
 	
 	public void loadTextures() {
 		for (int i=0; i<8; i++) {
-			setMovementTexture(ImageCache.getTexture(textureLocations[i]), movementTextures[i]);
+			setMovementTexture(ImageCache.getTexture(textureLocations[i]), i);
 		}
 	}
 	
-	private void setMovementTexture(Texture newTexture, Texture oldTexture) {
-		if (getTextures().contains(oldTexture)) {
-			removeTexture(oldTexture);
+	private void setMovementTexture(Texture newTexture, int index) {
+		if (getTextures().contains(movementTextures[index])) {
+			removeTexture(movementTextures[index]);
 		}
 		
 		addTexture(newTexture);
-		oldTexture = newTexture;
+		movementTextures[index] = newTexture;
 	}
 
 	public Ability getAbility1() {

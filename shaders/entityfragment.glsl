@@ -33,8 +33,6 @@ struct PointLight {
 
 uniform PointLight pointLights[POINTLIGHTS];
 
-uniform float gamma;
-
 uniform float farPlane;
 
 uniform bool softshadows;
@@ -237,11 +235,6 @@ vec3 calculatePointLight(int i, vec3 normal, vec3 fragPosition, vec3 viewDirecti
 	return (ambient + ((1.0 - shadow) * (diffuse + specular)));
 }
 
-vec4 gammaCorrection(vec4 fragColour) {
-	fragColour.rgb = pow(fragColour.rgb, vec3(1.0/gamma));
-	return fragColour;
-}
-
 void main(void) {
 	vec4 fragColour = texture(texture_diffuse, fs_in.texcoord);
 	if (fragColour.a <= 0.0) {
@@ -258,6 +251,4 @@ void main(void) {
 	}	
 
 	outColour = fragColour * vec4(result, 1.0);
-	
-	outColour = gammaCorrection(outColour);
 }
