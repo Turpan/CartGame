@@ -12,6 +12,7 @@ import amyInterface.Button;
 public class TravelMenuButton extends Button {
 	
 	public TravelMenuButton() {
+		setEnabled(true);
 		setVisible(true);
 		setInteractable(true);
 		

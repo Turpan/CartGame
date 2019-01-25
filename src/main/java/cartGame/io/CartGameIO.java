@@ -1,11 +1,37 @@
 package cartGame.io;
 
+import java.nio.ByteBuffer;
+
 public class CartGameIO {
 	
 	protected static final int INTLENGTH = 4;
 	
+	protected static final int DOUBLELENGTH = 8;
+	
 	protected CartGameIO() {
 		
+	}
+	
+	protected static byte[] doubleToByte(double num) {
+		byte[] data = new byte[8];
+		ByteBuffer.wrap(data).putDouble(num);
+		return data;
+	}
+	
+	protected static double byteToDouble(byte[] data) {
+		return ByteBuffer.wrap(data).getDouble();
+	}
+	
+	protected static double getByteDouble(byte[] data, int offset) {
+		try {
+			byte[] num = new byte[DOUBLELENGTH];
+			for (int i=offset; i<offset+DOUBLELENGTH; i++) {
+				num[i-offset] = data[i];
+			}
+			return byteToInt(num);
+		} catch (NullPointerException e) {
+			return Double.MIN_VALUE;
+		}
 	}
 	
 	protected static byte[] intToByte(int num) {

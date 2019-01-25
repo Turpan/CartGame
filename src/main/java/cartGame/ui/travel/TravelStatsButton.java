@@ -12,6 +12,7 @@ import amyInterface.Button;
 public class TravelStatsButton extends Button {
 
 	public TravelStatsButton() {
+		setEnabled(true);
 		setVisible(true);
 		setInteractable(true);
 		

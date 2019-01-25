@@ -1,17 +1,27 @@
 package cartGame.ui.travel;
 
 import amyGLGraphics.IO.MouseEvent;
+import amyGLGraphics.IO.MouseEventAction;
 import amyInterface.Component;
 import amyInterface.InterfaceController;
 
 public class TravelController extends InterfaceController {
-	TravelUI ui;
+	private TravelUI ui;
+	
+	private boolean stopStartPressed;
 
 	public TravelController() {
 		super();
 		ui = new TravelUI();
 		setRoot(ui);
 		setTickThreshold(10);
+	}
+	
+	public boolean isStopStartPressed() {
+		boolean value = stopStartPressed;
+		stopStartPressed = false;
+		
+		return value;
 	}
 
 	@Override
@@ -22,8 +32,8 @@ public class TravelController extends InterfaceController {
 			return clickSource;
 		}
 		
-		if (clickSource == ui.getMapButton()) {
-			
+		if (clickSource == ui.getMapButton() && event.getMouseAction() == MouseEventAction.PRESS) {
+			stopStartPressed = true;
 		} else if (clickSource == ui.getStatsButton()) {
 			
 		} else if (clickSource == ui.getMenuButton()) {

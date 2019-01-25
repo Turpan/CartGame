@@ -22,7 +22,7 @@ float calculateMoment2(float depth) {
 void main(void) {
 	vec4 fragColour = texture(texture_diffuse, fs_in.texcoord);
 	
-	if (fragColour.a <= 0.0) {
+	if (fragColour.a <= 0.5) {
 		discard;
 	}
 	

@@ -3,8 +3,6 @@
 #define POINTLIGHTS 32
 #define POINTLIGHTSSHADOW 4
 
-in vec2 passTexcoord;
-
 uniform sampler2D position_texture;
 uniform sampler2D normal_texture;
 uniform sampler2D albedo_texture;
@@ -39,6 +37,8 @@ uniform PointLight[POINTLIGHTS] pointLights;
 uniform bool softshadows;
 
 uniform float farPlane;
+
+in vec2 texcoord;
 
 out vec4 outColour;
 
@@ -235,9 +235,9 @@ vec3 calculateDirLight(DirLight light, vec3 normal, vec3 viewDirection, vec4 lig
 }
 
 void main(void) {
-	vec3 fragPosition = texture(position_texture, passTexcoord).rgb;
-	vec3 fragNormal = texture(normal_texture, passTexcoord).rgb;
-	vec3 fragColour = texture(albedo_texture, passTexcoord).rgb;
+	vec3 fragPosition = texture(position_texture, texcoord).rgb;
+	vec3 fragNormal = texture(normal_texture, texcoord).rgb;
+	vec3 fragColour = texture(albedo_texture, texcoord).rgb;
 	
 	vec3 viewDirection = normalize(viewPosition - fragPosition);
 	vec4 dirLightSpacePosition = dirLightMatrix * vec4(fragPosition.rgb, 1.0);

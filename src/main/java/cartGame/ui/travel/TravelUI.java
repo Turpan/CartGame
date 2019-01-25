@@ -12,8 +12,8 @@ import amyInterface.Container;
 
 public class TravelUI extends Container {
 	
-	TravelMenuBar menuBar;
-	TravelNameContainer namePlates;
+	private TravelMenuBar menuBar;
+	private TravelNameContainer namePlates;
 	
 	public TravelUI() {
 		Texture texture = loadTexture();

@@ -1,15 +1,12 @@
-package cartGame.core;
+package cartGame.travel.towns;
 
 import cartGame.travel.cart.Wagon;
-import cartGame.travel.towns.Road;
-import cartGame.travel.towns.Town;
-import cartGame.travel.towns.WorldMap;
 import movement.mathDS.Graph;
 
 public class TravelManager {
-	Wagon wagon;
+	private Wagon wagon = new Wagon();
 	
-	WorldMap map;
+	private WorldMap map = new WorldMap();
 	
 	public TravelManager() {
 		
@@ -30,7 +27,7 @@ public class TravelManager {
 	public WorldMap getMap() {
 		return map;
 	}
-	
+
 	public void setDestination(Town town) {
 		if (!canTravelTo(town)) {
 			return;

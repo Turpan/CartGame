@@ -48,6 +48,8 @@ public class TestArena extends Arena {
 				background[i] = image;
 			}
 		}
-		setBackground(background);
+		addBackground(background);
+		setActiveBackground1(background);
+		setActiveBackground2(background);
 	}
 }
