@@ -18,6 +18,10 @@ public class TestFloor extends Obstacle {
 		addTexture(texture);
 		setActiveTexture(texture);
 		setOutline(new BigRectangle(getDimensions()));
+		
+		setRotationAxis(new double[] {0,1,0});
+		setAngle(0);
+		setCentreOfRotation(new double[] {500,500,100});
 	}
 	protected TestFloor(TestFloor tf) {
 		super(tf);
