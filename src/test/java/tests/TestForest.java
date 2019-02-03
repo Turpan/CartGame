@@ -31,11 +31,11 @@ public class TestForest extends TravelGraphic {
 			
 			for (int j=0; j<TREECOUNT; j++) {
 				last += start;
-				addBackdrop(tree, last, treeDimen.clone(), i);
+				//addBackdrop(tree, last, treeDimen.clone(), i);
 			}
 		}
 		
-		addBackdrop(farm, 0, farmDimen, 2);
+		//addBackdrop(farm, 0, farmDimen, 2);
 	}
 	
 	public Texture loadTree() {

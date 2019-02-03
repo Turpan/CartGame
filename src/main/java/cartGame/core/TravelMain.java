@@ -2,27 +2,34 @@ package cartGame.core;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.LinkedHashMap;
 
 import amyInterface.InterfaceController;
+import cartGame.travel.graphics.Environment;
 import cartGame.travel.graphics.TravelGraphic;
+import cartGame.travel.graphics.TravelGraphicListener;
 import cartGame.travel.towns.TravelManager;
 import cartGame.ui.travel.TravelController;
 import movement.Room;
-import tests.TestDeepForest;
+import tests.TestTravel;
 
-public class TravelMain {
+public class TravelMain implements TravelGraphicListener {
 
 	private TravelManager manager;
 	
-	private List<TravelGraphic> environments = new ArrayList<TravelGraphic>();
+	private TravelGraphic graphics;
+	
 	private TravelController ui;
+	
+	private Map<String, List<Environment>> environmentPool = new LinkedHashMap<String, List<Environment>>();
 	
 	public TravelMain() {
 		manager = new TravelManager();
 		ui = new TravelController();
 		
 		//TODO remove later
-		environments.add(new TestDeepForest());
+		graphics = new TestTravel();
 	}
 	
 	public InterfaceController getUI() {
@@ -30,26 +37,49 @@ public class TravelMain {
 	}
 	
 	public Room getGraphic() {
-		return environments.get(0);
+		return graphics;
+	}
+	
+	public void addEnvironment(String biomeID, Environment environment) {
+		if (environmentPool.containsKey(biomeID)) {
+			environmentPool.get(biomeID).add(environment);
+		} else {
+			List<Environment> environments = new ArrayList<Environment>();
+			environments.add(environment);
+			environmentPool.put(biomeID, environments);
+		}
+	}
+	
+	public void removeEnvironment(Environment environment) {
+		for (String biomeID : environmentPool.keySet()) {
+			if (environmentPool.get(biomeID).contains(environment)) {
+				environmentPool.get(biomeID).remove(environment);
+			}
+		}
 	}
 	
 	public void tick() {
 		//TODO also remove later
-		TravelGraphic activeEnvironment = environments.get(0);
-		activeEnvironment.tick();
+		graphics.tick();
 		ui.tick();
 		
-		if (activeEnvironment.hourPassed()) {
+		if (graphics.hourPassed()) {
 			manager.travel();
 		}
 		
 		if (ui.isStopStartPressed()) {
-			if (activeEnvironment.isMoving()) {
-				activeEnvironment.stop();
+			if (graphics.isMoving()) {
+				graphics.stop();
 			} else {
-				activeEnvironment.start();
+				graphics.start();
 			}
 		}
+	}
+
+	@Override
+	public void environmentPassed() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

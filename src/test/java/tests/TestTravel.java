@@ -4,35 +4,37 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 
 import amyGraphics.Texture;
 import cartGame.io.ImageCache;
+import cartGame.travel.graphics.Environment;
 import cartGame.travel.graphics.TravelGraphic;
 
-public class TestDeepForest extends TravelGraphic {
+public class TestTravel extends TravelGraphic {
 	
-	public TestDeepForest() {
+	public TestTravel() {
 		super();
 		
-		Texture layer1 = new Texture(ImageCache.getTexture("graphics/travel/backgrounds/heavyforest_paper/heavyforest_1_1.png"));
-		Texture layer2 = new Texture(ImageCache.getTexture("graphics/travel/backgrounds/heavyforest_paper/heavyforest_1_2.png"));
-		Texture layer3 = new Texture(ImageCache.getTexture("graphics/travel/backgrounds/heavyforest_paper/heavyforest_1_3.png"));
+		Environment forest = new DeepForest();
+		Environment paper = new DeepForestPaper();
+		Environment lightforest = new LightForestPaper();
 		
-		Texture floor = new Texture(ImageCache.getTexture("graphics/travel/backgrounds/heavyforest_paper/heavyforest_1_ground.png"));
+		List<Integer> order = new ArrayList<Integer>();
+		order.add(Integer.valueOf(0));
+		//order.add(Integer.valueOf(1));
+		//order.add(Integer.valueOf(2));
 		
-		double[] layer1dim = new double[]{8100, 4500, 0};
-		double[] layer2dim = new double[]{8050, 3400, 0};
-		double[] layer3dim = new double[]{8050, 2792, 0};
+		addEnvironment(forest);
+		addEnvironment(paper);
+		addEnvironment(lightforest);
 		
-		double[] floordim = new double[]{8010, 0, 1500};
+		setEnvironmentOrder(order);
 		
-		addBackdrop(layer3, 0, layer3dim, 0);
-		addBackdrop(layer2, 0, layer2dim, 1);
-		addBackdrop(layer1, 0, layer1dim, 2);
-		
-		setGround(floor, 0, floordim);
+		reset();
 		
 		BufferedImage sky;
 		try {
