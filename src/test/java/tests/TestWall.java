@@ -29,11 +29,14 @@ public class TestWall extends Obstacle {
 		setPosition(positions[wall]);
 		setOutline(new BigRectangle(getDimensions()));
 		
+
+		setRotationAxis(new double[] {0,1,0});
+		setAngle(0);
+		setCentreOfRotation(new double[] {500,500,100});
+		
 		Texture texture;
 		if (wall != 3) {
-			texture = ImageCache.getTexture("graphics/combat/main test/arena/yellow.png");
 		} else {
-			texture = ImageCache.getTexture("graphics/editor/blank.png");
 		}
 		addTexture(texture);
 		setActiveTexture(texture);
@@ -47,7 +50,6 @@ public class TestWall extends Obstacle {
 		return new TestWall(this);
 	}
 	@Override
-	public void collision(Movable m) {
 		// TODO Auto-generated method stub
 		
 	}
