@@ -91,6 +91,10 @@ public class TravelGraphic extends Room {
 		listeners.remove(listener);
 	}
 	
+	public List<Environment> getEnvironments() {
+		return environments;
+	}
+	
 	public void addEnvironment(Environment environment) {
 		environments.add(environment);
 		

@@ -9,6 +9,7 @@ import amyInterface.InterfaceController;
 import cartGame.travel.graphics.Environment;
 import cartGame.travel.graphics.TravelGraphic;
 import cartGame.travel.graphics.TravelGraphicListener;
+import cartGame.travel.towns.Road;
 import cartGame.travel.towns.TravelManager;
 import cartGame.ui.travel.TravelController;
 import movement.Room;
@@ -23,6 +24,8 @@ public class TravelMain implements TravelGraphicListener {
 	private TravelController ui;
 	
 	private Map<String, List<Environment>> environmentPool = new LinkedHashMap<String, List<Environment>>();
+	private List<String> environmentQueue = new ArrayList<String>();
+	private List<String> environmentsPassed = new ArrayList<String>();
 	
 	public TravelMain() {
 		manager = new TravelManager();
@@ -48,6 +51,8 @@ public class TravelMain implements TravelGraphicListener {
 			environments.add(environment);
 			environmentPool.put(biomeID, environments);
 		}
+		
+		graphics.addEnvironment(environment);
 	}
 	
 	public void removeEnvironment(Environment environment) {
@@ -65,6 +70,21 @@ public class TravelMain implements TravelGraphicListener {
 		
 		if (graphics.hourPassed()) {
 			manager.travel();
+			
+			if (manager.getWagon().isTravelling()) {
+				Road road = manager.getCurrentRoad();
+				double distanceTotal = 0;
+				for (String biomeID : road.getBiomes().keySet()) {
+					double distance = road.getBiomes().get(biomeID);
+					distanceTotal += distance;
+					
+					if (manager.getWagon().getPosition() >= distanceTotal
+							&& !environmentQueue.contains(biomeID)
+							&& !environmentsPassed.contains(biomeID)) {
+						environmentQueue.add(biomeID);
+					}
+				}
+			}
 		}
 		
 		if (ui.isStopStartPressed()) {
@@ -78,8 +98,24 @@ public class TravelMain implements TravelGraphicListener {
 
 	@Override
 	public void environmentPassed() {
-		// TODO Auto-generated method stub
-		
+		if (environmentQueue.size() > 0) {
+			String biomeID = environmentQueue.get(0);
+			environmentQueue.remove(biomeID);
+			List<Environment> environments = environmentPool.get(biomeID);
+			environmentsPassed.add(biomeID);
+			
+			if (environments == null) {
+				return;
+			}	
+			
+			List<Integer> environmentOrder = new ArrayList<Integer>();
+			for (Environment environment : environments) {
+				int index = graphics.getEnvironments().indexOf(environment);
+				environmentOrder.add(index);
+			}
+			
+			graphics.setEnvironmentOrder(environmentOrder);
+		}
 	}
 	
 }

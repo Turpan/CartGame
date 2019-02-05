@@ -27,6 +27,14 @@ public class TravelManager {
 	public WorldMap getMap() {
 		return map;
 	}
+	
+	public Road getCurrentRoad() {
+		if (wagon.isTravelling()) {
+			return map.getMap().getEdgeValue(wagon.getCurrentTown(), wagon.getDestinationTown());
+		} else {
+			return null;
+		}
+	}
 
 	public void setDestination(Town town) {
 		if (!canTravelTo(town)) {

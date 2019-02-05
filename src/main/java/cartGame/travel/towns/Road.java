@@ -31,6 +31,10 @@ public class Road {
 		return distance;
 	}
 	
+	public Map<String, Double> getBiomes() {
+		return biomes;
+	}
+	
 	public void addBiome(String biomeID, double distance) {
 		biomes.put(biomeID, distance);
 	}

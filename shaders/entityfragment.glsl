@@ -35,6 +35,7 @@ uniform PointLight pointLights[POINTLIGHTS];
 
 uniform float farPlane;
 
+uniform bool shadows;
 uniform bool softshadows;
 
 in VS_OUT {
@@ -104,11 +105,13 @@ float softDirLightShadow(vec4 dirLightFragPosition, vec3 normal, vec3 lightDirec
 }
 
 float getDirLightShadow(vec4 dirLightFragPosition, vec3 normal, vec3 lightDirection) {
-	if (softshadows) {
-		return softDirLightShadow(dirLightFragPosition, normal, lightDirection);
-	} else {
-		return dirLightShadow(dirLightFragPosition, normal, lightDirection);
-	}
+	return shadows ? softshadows ? softDirLightShadow(dirLightFragPosition, normal, lightDirection) : 
+		dirLightShadow(dirLightFragPosition, normal, lightDirection) : 0.0;
+	//if (softshadows) {
+		//return softDirLightShadow(dirLightFragPosition, normal, lightDirection);
+	//} else {
+		//return dirLightShadow(dirLightFragPosition, normal, lightDirection);
+	//}
 }
 
 vec2 xyzToUV(vec3 v) {
@@ -183,11 +186,12 @@ float pointLightShadow(vec3 fragPosition, int i) {
 }
 
 float getPointLightShadow(vec3 fragPosition, int i) {
-	if (softshadows) {
-		return softPointLightShadow(fragPosition, i);
-	} else {
-		return pointLightShadow(fragPosition, i);
-	}
+	return shadows ? softshadows ? softPointLightShadow(fragPosition, i) : pointLightShadow(fragPosition, i) : 0.0;
+	//if (softshadows) {
+		//return softPointLightShadow(fragPosition, i);
+	//} else {
+		//return pointLightShadow(fragPosition, i);
+	//}
 }
 
 vec3 calculateDirLight(DirLight light, vec3 normal, vec3 viewDirection) {

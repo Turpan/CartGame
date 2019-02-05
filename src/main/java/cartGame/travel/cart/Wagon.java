@@ -3,9 +3,9 @@ package cartGame.travel.cart;
 import cartGame.travel.towns.Town;
 
 public class Wagon {
-	int speed;
+	double speed;
 	
-	int position;
+	double position;
 	
 	Town current;
 	
@@ -19,19 +19,19 @@ public class Wagon {
 		this.speed = speed;
 	}
 	
-	public int getSpeed() {
+	public double getSpeed() {
 		return speed;
 	}
 	
-	public void setPosition(int position) {
+	public void setPosition(double position) {
 		this.position = position;
 	}
 	
-	public void addPosition(int toAdd) {
+	public void addPosition(double toAdd) {
 		position += toAdd;
 	}
 	
-	public int getPosition() {
+	public double getPosition() {
 		return position;
 	}
 	
