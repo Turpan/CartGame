@@ -32,7 +32,7 @@ public class TestFloor extends Obstacle {
 		return new TestFloor(this);
 	}
 	@Override
-	public void collision(Movable m) {
+	public void collision(Movable m, double[] collisionLocationInThis) {
 		// TODO Auto-generated method stub
 		
 	}

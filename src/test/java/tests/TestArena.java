@@ -41,8 +41,7 @@ public class TestArena extends Arena {
 		player.setAngle(0);
 		player.setCentreOfRotation(new double[] {500,500,100});
 		setPlayer(player);
-		player.setOutline(new Ellipse(player.getDimensions()));
-
+		
 //		Player player2 = new TestCharacter();
 //		player2.setPosition(new double[] {0, 2000, 0});
 //		player2.setDimensions(new double[] {1000, 1000, 200});

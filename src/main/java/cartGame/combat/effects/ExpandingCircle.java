@@ -26,7 +26,7 @@ public class ExpandingCircle extends Attack {
 		
 		Ellipse collisionShape = new Ellipse(dimensions);
 		
-		setOutline(collisionShape);
+		setSimpleOutline(collisionShape);
 		setDimensions(dimensions.clone());
 		setPosition(new double[] {0.0, 0.0, 0.0});
 	}
@@ -75,9 +75,9 @@ public class ExpandingCircle extends Attack {
 	}
 
 	@Override
-	public void collision(Movable m) {
+	public void collision(Movable m, double[] collisionLocationInThis) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 }

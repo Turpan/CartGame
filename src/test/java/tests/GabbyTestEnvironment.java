@@ -49,7 +49,7 @@ public class GabbyTestEnvironment extends GraphicsTestEnvironment{
 		List<Room> rooms = new ArrayList<Room>();
 		
 		travel = new TravelMain();
-		rooms.add(travel.getGraphic());
+//		rooms.add(travel.getGraphic());
 		
 		//Room room1 = new TestDeepForest();
 		//rooms.add(room1);
@@ -61,8 +61,8 @@ public class GabbyTestEnvironment extends GraphicsTestEnvironment{
 			System.err.println("There was a woopsies");
 		}*/
 		
-		//Room room = new TestArena();
-		//rooms.add(room);
+		Room room = new TestArena();
+		rooms.add(room);
 
 		return rooms;
 	}
@@ -73,10 +73,10 @@ public class GabbyTestEnvironment extends GraphicsTestEnvironment{
 	
 	@Override
 	public void tick() {
-		//super.tick();
+		super.tick();
 		
-		travel.tick();
-		//controller1.tick();
+//		travel.tick();
+//		controller1.tick();
 		
 		tickCount++;
 		

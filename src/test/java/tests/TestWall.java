@@ -36,7 +36,9 @@ public class TestWall extends Obstacle {
 		
 		Texture texture;
 		if (wall != 3) {
+			texture =  ImageCache.getTexture("graphics/combat/main test/arena/green.png");
 		} else {
+			texture = null;
 		}
 		addTexture(texture);
 		setActiveTexture(texture);
@@ -50,8 +52,8 @@ public class TestWall extends Obstacle {
 		return new TestWall(this);
 	}
 	@Override
+	public void collision(Movable m, double[] collisionLocationInThis) {
 		// TODO Auto-generated method stub
 		
 	}
-
 }

@@ -300,9 +300,8 @@ public class Player extends SelfPropelled {
 		// TODO Auto-generated method stub
 		
 	}
-
 	@Override
-	public void collision(Movable m) {
+	public void collision(Movable m, double[] collisionLocationInThis) {
 		// TODO Auto-generated method stub
 		
 	}
