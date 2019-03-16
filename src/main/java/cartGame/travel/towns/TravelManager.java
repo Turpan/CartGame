@@ -1,5 +1,8 @@
 package cartGame.travel.towns;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import cartGame.travel.cart.Wagon;
 import movement.mathDS.Graph;
 
@@ -7,6 +10,8 @@ public class TravelManager {
 	private Wagon wagon = new Wagon();
 	
 	private WorldMap map = new WorldMap();
+	
+	private List<TravelManagerListener> listeners = new ArrayList<TravelManagerListener>();
 	
 	public TravelManager() {
 		
@@ -26,6 +31,14 @@ public class TravelManager {
 	
 	public WorldMap getMap() {
 		return map;
+	}
+	
+	public void addListener(TravelManagerListener listener) {
+		listeners.add(listener);
+	}
+	
+	public void removeListener(TravelManagerListener listener) {
+		listeners.remove(listener);
 	}
 	
 	public Road getCurrentRoad() {
@@ -66,6 +79,8 @@ public class TravelManager {
 				wagon.setCurrentTown(wagon.getDestinationTown());
 				wagon.setDestinationTown(null);
 				wagon.setPosition(0);
+				
+				for (TravelManagerListener listener : listeners) listener.arrivedAtTown();
 			}
 		}
 	}

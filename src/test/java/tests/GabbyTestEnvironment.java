@@ -1,7 +1,13 @@
 package tests;
 
+import java.awt.Color;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.imageio.ImageIO;
 
 import OpenGLTests.CommunismRoom;
 import OpenGLTests.GraphicsTestEnvironment;
@@ -11,16 +17,20 @@ import amyInterface.Button;
 import amyInterface.Component;
 import amyInterface.InterfaceController;
 import cartGame.core.TravelMain;
+import cartGame.io.GraphicsQueue;
 import cartGame.ui.map.MapController;
+import cartGame.ui.town.TownController;
 import cartGame.ui.travel.TravelController;
 import movement.Room;
+import tests.towns.ShepardTown;
 
 public class GabbyTestEnvironment extends GraphicsTestEnvironment{
 	
-	private TravelMain travel;
+	//private TravelMain travel;
 	
 	//InterfaceController controller1;
 	//InterfaceController controller2;
+	TownController town;
 	
 	//TravelGraphic room1;
 	//CommunismRoom room2;
@@ -39,7 +49,12 @@ public class GabbyTestEnvironment extends GraphicsTestEnvironment{
 		List<Component> scenes = new ArrayList<Component>();
 		//scenes.add(controller1.getRoot());
 		//scenes.add(controller2.getRoot());
-		scenes.add(travel.getUI().getRoot());
+		//scenes.add(travel.getUI().getRoot());
+		
+		town = new TownController();
+		town.loadTownInfo(new ShepardTown());
+		town.setHour(12);
+		scenes.add(town.getRoot());
 		
 		return scenes;
 	}
@@ -48,8 +63,8 @@ public class GabbyTestEnvironment extends GraphicsTestEnvironment{
 	protected List<Room> getRooms() {
 		List<Room> rooms = new ArrayList<Room>();
 		
-		travel = new TravelMain();
-//		rooms.add(travel.getGraphic());
+		//travel = new TravelMain();
+		//rooms.add(travel.getGraphic());
 		
 		//Room room1 = new TestDeepForest();
 		//rooms.add(room1);
@@ -61,9 +76,6 @@ public class GabbyTestEnvironment extends GraphicsTestEnvironment{
 			System.err.println("There was a woopsies");
 		}*/
 		
-		Room room = new TestArena();
-		rooms.add(room);
-
 		return rooms;
 	}
 	
@@ -75,15 +87,8 @@ public class GabbyTestEnvironment extends GraphicsTestEnvironment{
 	public void tick() {
 		super.tick();
 		
-//		travel.tick();
-//		controller1.tick();
-		
-		tickCount++;
-		
-		if (tickCount == 6000) {
-			//window.setActiveRoom(room2);
-			//window.setActiveScene(controller2.getRoot());
-		}
+		town.tick();
+		//travel.tick();
 	}
 	
 	protected void buttonClick(Button button, MouseEvent event) {

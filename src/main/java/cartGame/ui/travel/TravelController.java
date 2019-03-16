@@ -9,6 +9,7 @@ public class TravelController extends InterfaceController {
 	private TravelUI ui;
 	
 	private boolean stopStartPressed;
+	private boolean mapOpenPressed;
 
 	public TravelController() {
 		super();
@@ -23,6 +24,13 @@ public class TravelController extends InterfaceController {
 		
 		return value;
 	}
+	
+	public boolean isMapOpenPressed() {
+		boolean value = mapOpenPressed;
+		mapOpenPressed = false;
+		
+		return value;
+	}
 
 	@Override
 	protected Component processInput(MouseEvent event) {
@@ -33,11 +41,11 @@ public class TravelController extends InterfaceController {
 		}
 		
 		if (clickSource == ui.getMapButton() && event.getMouseAction() == MouseEventAction.PRESS) {
-			stopStartPressed = true;
+			mapOpenPressed = true;
 		} else if (clickSource == ui.getStatsButton()) {
 			
 		} else if (clickSource == ui.getMenuButton()) {
-			
+			stopStartPressed = true;
 		}
 		
 		return clickSource;

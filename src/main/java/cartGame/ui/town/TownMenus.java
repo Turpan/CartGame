@@ -9,21 +9,22 @@ import javax.imageio.ImageIO;
 import amyGraphics.Texture;
 import amyInterface.Button;
 import amyInterface.Container;
+import cartGame.io.ImageCache;
 import cartGame.travel.towns.Town;
 
-public class TownUI extends Container {
+public class TownMenus extends Container {
 	
 	TownMenuBar menuBar;
 	TownSideBar sideBar;
 	
-	public TownUI() {
+	public TownMenus() {
 		Texture texture = loadTexture();
 		addTexture(texture);
 		setActiveTexture(texture);
 		
 		setBounds(0, 0, 640, 360);
 		
-		setVisible(true);
+		//setVisible(true);
 		
 		menuBar = new TownMenuBar();
 		sideBar = new TownSideBar();
@@ -37,25 +38,13 @@ public class TownUI extends Container {
 	}
 	
 	public Texture loadTexture() {
-		BufferedImage image = null;
-		try {
-			image = ImageIO.read(new File("graphics/ui/town/background.png"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		Texture texture = new Texture(image);
+		Texture texture = ImageCache.getTexture("graphics/ui/town/background.png");
 		
 		return texture;
 	}
 	
 	public Button getMapButton() {
 		return menuBar.getMapButton();
-	}
-	
-	public Button getStatsButton() {
-		return menuBar.getStatsButton();
 	}
 	
 	public Button getMenuButton() {

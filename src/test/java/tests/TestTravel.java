@@ -24,9 +24,9 @@ public class TestTravel extends TravelGraphic {
 		Environment lightforest = new LightForestPaper();
 		
 		List<Integer> order = new ArrayList<Integer>();
-		order.add(Integer.valueOf(0));
-		//order.add(Integer.valueOf(1));
-		//order.add(Integer.valueOf(2));
+		//order.add(Integer.valueOf(0));
+		order.add(Integer.valueOf(1));
+		order.add(Integer.valueOf(2));
 		
 		addEnvironment(forest);
 		addEnvironment(paper);

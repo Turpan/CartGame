@@ -4,7 +4,7 @@ import amyGLGraphics.IO.MouseEvent;
 import amyInterface.Button;
 import amyInterface.Component;
 import amyInterface.InterfaceController;
-import cartGame.ui.town.TownUI;
+import cartGame.ui.town.TownMenus;
 
 public class MapController extends InterfaceController {
 	String travelRequest;
@@ -29,6 +29,10 @@ public class MapController extends InterfaceController {
 		return travelRequest;
 	}
 	
+	public MapUI getMapUI() {
+		return ui;
+	}
+	
 	@Override
 	protected Component processInput(MouseEvent event) {
 		Component clickSource = super.processInput(event);
@@ -41,6 +45,7 @@ public class MapController extends InterfaceController {
 			Button button = (Button) clickSource;
 			
 			String townID = ui.getButtonID(button);
+			setTravelRequest(townID);
 		}
 		
 		return clickSource;

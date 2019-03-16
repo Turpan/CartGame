@@ -48,6 +48,12 @@ public class TownIO extends CartGameIO{
 			byte[] iconLength = intToByte(town.getIconLocation().length());
 			byte[] iconLocation = town.getIconLocation().getBytes();
 			
+			byte[] backgroundLength = intToByte(town.getBackgroundLocation().length());
+			byte[] backgroundLocation = town.getBackgroundLocation().getBytes();
+			
+			byte[] introLength = intToByte(town.getIntroLocation().length());
+			byte[] introLocation = town.getIconLocation().getBytes();
+			
 			LinkedList<Town> linkedTowns = townData.getMap().getVertexLinkedList(town);
 			List<Town> connections = new ArrayList<Town>();
 			connections.addAll(linkedTowns);
@@ -81,6 +87,12 @@ public class TownIO extends CartGameIO{
 			
 			fileWriter.write(iconLength);
 			fileWriter.write(iconLocation);
+			
+			fileWriter.write(backgroundLength);
+			fileWriter.write(backgroundLocation);
+			
+			fileWriter.write(introLength);
+			fileWriter.write(introLocation);
 			
 			fileWriter.write(connectionCount);
 			
@@ -191,12 +203,38 @@ public class TownIO extends CartGameIO{
 			}
 			offset += iconLength;
 			
+			int backgroundLength = getByteData(data, offset);
+			if (backgroundLength < 0) {
+				return null;
+			}
+			offset += INTLENGTH;
+			
+			String backgroundLocation = getByteString(data, offset, backgroundLength);
+			if (backgroundLocation == null) {
+				return null;
+			}
+			offset += backgroundLength;
+			
+			int introLength = getByteData(data, offset);
+			if (introLength < 0) {
+				return null;
+			}
+			offset += INTLENGTH;
+			
+			String introLocation = getByteString(data, offset, introLength);
+			if (introLocation == null) {
+				return null;
+			}
+			offset += introLength;
+			
 			Town town = new Town();
 			town.setID(townID);
 			town.setName(townName);
 			town.setMapX(mapX);
 			town.setMapY(mapY);
 			town.setIconLocation(iconName);
+			town.setBackgroundLocation(backgroundLocation);
+			town.setIntroLocation(introLocation);
 			
 			List<String> list = new ArrayList<String>();
 			Map<String, String> roadIDs = new LinkedHashMap<String, String>();

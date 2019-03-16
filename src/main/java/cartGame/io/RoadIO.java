@@ -36,9 +36,23 @@ public class RoadIO extends CartGameIO {
 			
 			byte[] roadDistance = intToByte(road.getDistance());
 			
+			byte[] biomeCount = intToByte(road.getBiomes().size());
+			
 			fileWriter.write(roadIDLength);
 			fileWriter.write(roadID);
 			fileWriter.write(roadDistance);
+			
+			fileWriter.write(biomeCount);
+			
+			for (String biome : road.getBiomes().keySet()) {
+				byte[] roadBiomeLength = intToByte(biome.length());
+				byte[] roadBiome = biome.getBytes();
+				byte[] biomeLength = doubleToByte(road.getBiomes().get(biome));
+				
+				fileWriter.write(roadBiomeLength);
+				fileWriter.write(roadBiome);
+				fileWriter.write(biomeLength);
+			}
 		}
 		
 		fileWriter.write(FOOTERDATA);
@@ -107,9 +121,37 @@ public class RoadIO extends CartGameIO {
 			}
 			offset += INTLENGTH;
 			
+			int biomeCount = getByteData(data, offset);
+			if (biomeCount < 0) {
+				return null;
+			}
+			offset += INTLENGTH;
+			
 			Road road = new Road();
 			road.setID(roadID);
 			road.setDistance(roadDistance);
+			
+			for (int j=0; j<biomeCount; j++) {
+				int biomeIDLength = getByteData(data, offset);
+				if (biomeIDLength < 0) {
+					return null;
+				}
+				offset += INTLENGTH;
+				
+				String biomeID = getByteString(data, offset, biomeIDLength);
+				if (biomeID == null) {
+					return null;
+				}
+				offset += biomeIDLength;
+				
+				double biomeDistance = getByteDouble(data, offset);
+				if (biomeDistance < 0) {
+					return null;
+				}
+				offset += DOUBLELENGTH;
+				
+				road.addBiome(biomeID, biomeDistance);
+			}
 			
 			roads.add(road);
 		}

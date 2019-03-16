@@ -13,7 +13,7 @@ public class TownButton extends Button {
 		setVisible(true);
 		setInteractable(true);
 		
-		setButtonTextures(getTexture(), getPressedTexture());
+		setButtonTextures(getTexture(), getPressedTexture(), null);
 		
 		setBounds(x, y, width, height);
 	}

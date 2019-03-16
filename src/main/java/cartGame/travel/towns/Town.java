@@ -16,6 +16,12 @@ public class Town {
 	private String iconLocation;
 	private Texture icon;
 	
+	private String backgroundLocation;
+	private Texture background;
+	
+	private String introLocation;
+	private Texture intro;
+	
 	private Shop shop;
 	
 	public Town() {
@@ -31,6 +37,12 @@ public class Town {
 	public void loadImage() {
 		if (icon == null) {
 			icon = ImageCache.getTexture(iconLocation);
+		}
+		if (background == null) {
+			background = ImageCache.getTexture(backgroundLocation);
+		}
+		if (intro == null) {
+			intro = ImageCache.getTexture(introLocation);
 		}
 	}
 	
@@ -88,6 +100,38 @@ public class Town {
 
 	public void setIcon(Texture icon) {
 		this.icon = icon;
+	}
+
+	public String getBackgroundLocation() {
+		return backgroundLocation;
+	}
+
+	public void setBackgroundLocation(String backgroundLocation) {
+		this.backgroundLocation = backgroundLocation;
+	}
+
+	public Texture getBackground() {
+		return background;
+	}
+
+	public void setBackground(Texture background) {
+		this.background = background;
+	}
+
+	public String getIntroLocation() {
+		return introLocation;
+	}
+
+	public void setIntroLocation(String introLocation) {
+		this.introLocation = introLocation;
+	}
+
+	public Texture getIntro() {
+		return intro;
+	}
+
+	public void setIntro(Texture intro) {
+		this.intro = intro;
 	}
 
 	public void setShop(Shop shop) {

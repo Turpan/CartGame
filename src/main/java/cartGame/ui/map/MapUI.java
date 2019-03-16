@@ -40,7 +40,7 @@ public class MapUI extends Container {
 	
 	public void updateButtons(WorldMap map, Wagon wagon) {
 		for (TownButton button : buttonIDs.keySet()) {
-			setEnabled(false);
+			setInteractable(false);
 		}
 		
 		if (wagon.isTravelling()) {

@@ -10,12 +10,14 @@ import cartGame.travel.graphics.Environment;
 import cartGame.travel.graphics.TravelGraphic;
 import cartGame.travel.graphics.TravelGraphicListener;
 import cartGame.travel.towns.Road;
+import cartGame.travel.towns.Town;
 import cartGame.travel.towns.TravelManager;
+import cartGame.travel.towns.TravelManagerListener;
 import cartGame.ui.travel.TravelController;
 import movement.Room;
 import tests.TestTravel;
 
-public class TravelMain implements TravelGraphicListener {
+public class TravelMain implements TravelGraphicListener, TravelManagerListener {
 
 	private TravelManager manager;
 	
@@ -29,18 +31,66 @@ public class TravelMain implements TravelGraphicListener {
 	
 	public TravelMain() {
 		manager = new TravelManager();
+		manager.addListener(this);
+		
 		ui = new TravelController();
 		
 		//TODO remove later
 		graphics = new TestTravel();
+		graphics.addListener(this);
 	}
 	
-	public InterfaceController getUI() {
+	public TravelController getUI() {
 		return ui;
 	}
 	
 	public Room getGraphic() {
 		return graphics;
+	}
+	
+	public TravelManager getManager() {
+		return manager;
+	}
+	
+	public void startTravel(Town destination) {
+		if (manager.canTravelTo(destination)) {
+			manager.setDestination(destination);
+			
+			Road road = manager.getCurrentRoad();
+			String biomeID = null;
+			for (String biome : road.getBiomes().keySet()) {
+				biomeID = biome;
+				break;
+			}
+			if (biomeID == null) {
+				return;
+			}
+			
+			environmentQueue.add(biomeID);
+			advanceBiome();
+			graphics.reset();
+		}
+	}
+	
+	private void advanceBiome() {
+		if (environmentQueue.size() > 0) {
+			String biomeID = environmentQueue.get(0);
+			environmentQueue.remove(biomeID);
+			List<Environment> environments = environmentPool.get(biomeID);
+			environmentsPassed.add(biomeID);
+			
+			if (environments == null) {
+				return;
+			}	
+			
+			List<Integer> environmentOrder = new ArrayList<Integer>();
+			for (Environment environment : environments) {
+				int index = graphics.getEnvironments().indexOf(environment);
+				environmentOrder.add(index);
+			}
+			
+			graphics.setEnvironmentOrder(environmentOrder);
+		}
 	}
 	
 	public void addEnvironment(String biomeID, Environment environment) {
@@ -64,25 +114,26 @@ public class TravelMain implements TravelGraphicListener {
 	}
 	
 	public void tick() {
-		//TODO also remove later
+		if (!manager.getWagon().isTravelling()) {
+			return;
+		}
+		
 		graphics.tick();
 		ui.tick();
 		
 		if (graphics.hourPassed()) {
 			manager.travel();
 			
-			if (manager.getWagon().isTravelling()) {
-				Road road = manager.getCurrentRoad();
-				double distanceTotal = 0;
-				for (String biomeID : road.getBiomes().keySet()) {
-					double distance = road.getBiomes().get(biomeID);
-					distanceTotal += distance;
-					
-					if (manager.getWagon().getPosition() >= distanceTotal
-							&& !environmentQueue.contains(biomeID)
-							&& !environmentsPassed.contains(biomeID)) {
-						environmentQueue.add(biomeID);
-					}
+			Road road = manager.getCurrentRoad();
+			double distanceTotal = 0;
+			for (String biomeID : road.getBiomes().keySet()) {
+				double distance = road.getBiomes().get(biomeID);
+				distanceTotal += distance;
+				
+				if (manager.getWagon().getPosition() >= distanceTotal
+						&& !environmentQueue.contains(biomeID)
+						&& !environmentsPassed.contains(biomeID)) {
+					environmentQueue.add(biomeID);
 				}
 			}
 		}
@@ -98,24 +149,12 @@ public class TravelMain implements TravelGraphicListener {
 
 	@Override
 	public void environmentPassed() {
-		if (environmentQueue.size() > 0) {
-			String biomeID = environmentQueue.get(0);
-			environmentQueue.remove(biomeID);
-			List<Environment> environments = environmentPool.get(biomeID);
-			environmentsPassed.add(biomeID);
-			
-			if (environments == null) {
-				return;
-			}	
-			
-			List<Integer> environmentOrder = new ArrayList<Integer>();
-			for (Environment environment : environments) {
-				int index = graphics.getEnvironments().indexOf(environment);
-				environmentOrder.add(index);
-			}
-			
-			graphics.setEnvironmentOrder(environmentOrder);
-		}
+		advanceBiome();
+	}
+
+	@Override
+	public void arrivedAtTown() {
+		graphics.stop();
 	}
 	
 }

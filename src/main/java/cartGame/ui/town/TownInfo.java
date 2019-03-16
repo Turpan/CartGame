@@ -1,7 +1,6 @@
 package cartGame.ui.town;
 
 import java.awt.Color;
-import java.awt.FontFormatException;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -81,7 +80,7 @@ public class TownInfo extends Container {
 	public Label createLabel(int size) {
 		Label label = new Label();
 		
-		label.setFont(FontTexture.createFontTexture("fonts/IrishPenny.ttf", true));
+		label.setFont(FontTexture.createFontTexture("fonts/DSBehrensschrift.ttf", true));
 		
 		label.setFontSize(size);
 		

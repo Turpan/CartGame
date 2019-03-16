@@ -7,17 +7,34 @@ import cartGame.travel.towns.Town;
 
 public class TownController extends InterfaceController {
 	
-	TownUI ui;
+	private TownRoot root;
+	
+	private boolean mapOpenPressed;
 
 	public TownController() {
 		super();
-		ui = new TownUI();
-		setRoot(ui);
+		root = new TownRoot();
+		setRoot(root);
 		setTickThreshold(10);
 	}
 	
+	public TownRoot getInterface() {
+		return root;
+	}
+	
+	public void setHour(int hour) {
+		root.setHour(hour);
+	}
+	
 	public void loadTownInfo(Town town) {
-		ui.setTown(town);
+		root.setTown(town);
+	}
+	
+	public boolean isMapOpenPressed() {
+		boolean value = mapOpenPressed;
+		mapOpenPressed = false;
+		
+		return value;
 	}
 
 	@Override
@@ -28,11 +45,11 @@ public class TownController extends InterfaceController {
 			return clickSource;
 		}
 		
-		if (clickSource == ui.getMapButton()) {
-			
-		} else if (clickSource == ui.getStatsButton()) {
-			
-		} else if (clickSource == ui.getMenuButton()) {
+		if (clickSource == root.getSplashScreen()) {
+			root.switchToTown();
+		} else if (clickSource == root.getMapButton()) {
+			mapOpenPressed = true;
+		} else if (clickSource == root.getMenuButton()) {
 			
 		}
 		
