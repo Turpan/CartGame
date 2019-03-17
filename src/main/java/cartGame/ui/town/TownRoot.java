@@ -1,63 +1,93 @@
 package cartGame.ui.town;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import amyGraphics.Texture;
+import amyInterface.Button;
 import amyInterface.Component;
 import amyInterface.Container;
+import cartGame.io.ImageCache;
 import cartGame.travel.towns.Town;
 
 public class TownRoot extends Container {
 	
-	private TownSplash splash;
-	private TownBackground background;
-	private TownMenus menus;
+	private Component skyBackground;
+	private Component townBackground;
+	
+	private TownTopBar topBar;
+	private TownBottomBar bottomBar;
+	
+	private List<Texture> skyTextures = new ArrayList<Texture>();
 	
 	public TownRoot() {
 		super();
 		
-		setBounds(0, 0, 640, 360);
+		setBounds(0, 0, 480, 270);
 		
-		setVisible(true);
+		skyBackground = new Component();
+		skyBackground.setBounds(0, 0, 480, 270);
+		skyBackground.setVisible(true);
 		
-		background = new TownBackground();
-		menus = new TownMenus();
-		splash = new TownSplash();
+		townBackground = new Component();
+		townBackground.setBounds(0, 0, 480, 270);
+		townBackground.setVisible(true);
 		
-		addChild(splash);
-		addChild(background);
-		addChild(menus);
+		topBar = new TownTopBar();
+		bottomBar = new TownBottomBar();
 		
-		switchToTown();
+		addChild(skyBackground);
+		addChild(townBackground);
+		addChild(topBar);
+		addChild(bottomBar);
+		
+		loadSky();
 	}
 	
-	public void switchToTown() {
-		splash.setVisible(false);
-		splash.setBounds(-1, -1, 0, 0);
-		background.setVisible(true);
-		menus.setVisible(true);
+	private void loadSky() {
+		addSky(ImageCache.getTexture("graphics/travel/sky/" + 12 + "am.png"));
+		
+		for (int i=1; i<12; i++) {
+			addSky(ImageCache.getTexture("graphics/travel/sky/" + i + "am.png"));
+		}
+		
+		addSky(ImageCache.getTexture("graphics/travel/sky/" + 12 + "pm.png"));
+		
+		for (int i=1; i<12; i++) {
+			addSky(ImageCache.getTexture("graphics/travel/sky/" + i + "pm.png"));
+		}
 	}
 	
 	public void setHour(int hour) {
-		background.setHour(hour);
+		if (skyTextures.size() == 0) {
+			return;
+		}
+		
+		if (hour < 0) {
+			hour = 0;
+		} else if (hour >= skyTextures.size()) {
+			hour = skyTextures.size() - 1;
+		}
+		
+		skyBackground.setActiveTexture(skyTextures.get(hour));
 	}
-
+	
+	public Button getMapButton() {
+		return topBar.getMapButton();
+	}
+	
+	public Button getMenuButton() {
+		return topBar.getMenuButton();
+	}
+	
 	public void setTown(Town town) {
-		splash.setTown(town);
-		background.setTown(town);
-		menus.setTown(town);
+		townBackground.addTexture(town.getBackground());
+		townBackground.setActiveTexture(town.getBackground());
+		topBar.setTown(town);
 	}
 	
-	public TownBackground getTownBackground() {
-		return background;
-	}
-	
-	public Component getSplashScreen() {
-		return splash;
-	}
-
-	public Component getMapButton() {
-		return menus.getMapButton();
-	}
-
-	public Component getMenuButton() {
-		return menus.getMenuButton();
+	public void addSky(Texture texture) {
+		skyTextures.add(texture);
+		skyBackground.addTexture(texture);
 	}
 }

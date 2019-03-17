@@ -45,9 +45,7 @@ public class TownController extends InterfaceController {
 			return clickSource;
 		}
 		
-		if (clickSource == root.getSplashScreen()) {
-			root.switchToTown();
-		} else if (clickSource == root.getMapButton()) {
+		if (clickSource == root.getMapButton()) {
 			mapOpenPressed = true;
 		} else if (clickSource == root.getMenuButton()) {
 			

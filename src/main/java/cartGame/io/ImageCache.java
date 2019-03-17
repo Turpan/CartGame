@@ -11,11 +11,13 @@ import javax.imageio.ImageIO;
 
 import amyGraphics.Animation;
 import amyGraphics.Texture;
+import amyInterface.FontTexture;
 import lucyAnimation.LucyIO;
 
 public class ImageCache {
 	private static Map<String, Texture> textures = new HashMap<String, Texture>();
 	private static Map<String, Animation> animations = new HashMap<String, Animation>();
+	private static Map<String, FontTexture> fonts = new HashMap<String, FontTexture>();
 	
 	public static Animation getAnimation(String imageFile) {
 		if (imageFile == null) {
@@ -76,6 +78,28 @@ public class ImageCache {
 		textures.put(imageFile, texture);
 		
 		return texture;
+	}
+	
+	public static FontTexture getFont(String imageFile) {
+		if (imageFile == null) {
+			imageFile = "";
+		}
+		
+		FontTexture texture = fonts.get(imageFile);
+		
+		if (texture == null) {
+			return new FontTexture(loadFont(imageFile));
+		}
+		
+		return new FontTexture(texture);
+	}
+	
+	private static FontTexture loadFont(String imageFile) {
+		FontTexture font = FontTexture.createFontTexture(imageFile, true);
+		
+		fonts.put(imageFile, font);
+		
+		return font;
 	}
 	
 	public static void removeImage(String imageFile) {
