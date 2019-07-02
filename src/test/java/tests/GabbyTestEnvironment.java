@@ -18,10 +18,12 @@ import amyInterface.Component;
 import amyInterface.InterfaceController;
 import cartGame.core.TravelMain;
 import cartGame.io.GraphicsQueue;
+import cartGame.travel.graphics.TravelGraphic;
 import cartGame.ui.map.MapController;
 import cartGame.ui.town.TownController;
 import cartGame.ui.travel.TravelController;
 import movement.Room;
+import tests.towns.EastMighter;
 import tests.towns.ShepardTown;
 
 public class GabbyTestEnvironment extends GraphicsTestEnvironment{
@@ -31,8 +33,10 @@ public class GabbyTestEnvironment extends GraphicsTestEnvironment{
 	//InterfaceController controller1;
 	//InterfaceController controller2;
 	TownController town;
+	//TravelController travel;
+	//MapController map;
 	
-	//TravelGraphic room1;
+	//TestTravel room1;
 	//CommunismRoom room2;
 	
 	int tickCount = 0;
@@ -52,9 +56,15 @@ public class GabbyTestEnvironment extends GraphicsTestEnvironment{
 		//scenes.add(travel.getUI().getRoot());
 		
 		town = new TownController();
-		town.loadTownInfo(new ShepardTown());
-		town.setHour(12);
+		town.loadTownInfo(new EastMighter());
+		town.setHour(5);
 		scenes.add(town.getRoot());
+		
+		//travel = new TravelController();
+		//scenes.add(travel.getRoot());
+		
+		//map = new MapController();
+		//scenes.add(map.getRoot());
 		
 		return scenes;
 	}
@@ -66,8 +76,9 @@ public class GabbyTestEnvironment extends GraphicsTestEnvironment{
 		//travel = new TravelMain();
 		//rooms.add(travel.getGraphic());
 		
-		//Room room1 = new TestDeepForest();
+		//room1 = new TestTravel();
 		//rooms.add(room1);
+		//room1.start();
 		
 		/*try {
 			room2 = new CommunismRoom();
@@ -89,6 +100,9 @@ public class GabbyTestEnvironment extends GraphicsTestEnvironment{
 		
 		town.tick();
 		//travel.tick();
+		//map.tick();
+		
+		//room1.tick();
 	}
 	
 	protected void buttonClick(Button button, MouseEvent event) {

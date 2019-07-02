@@ -24,7 +24,7 @@ public class TownBottomBar extends Container {
 		
 		setBounds(0, 211, 480,59);
 		
-		String[] names = new String[] {"Shop", "Inn", "Camp", "Quest", "Leave"};
+		String[] names = new String[] {"Market", "Inn", "Camp", "Quest", "Leave"};
 		Color[] colors = new Color[] {Color.RED, Color.RED, Color.RED, Color.RED, Color.RED};
 		final int width = 71;
 		List<Button> buttons = new ArrayList<Button>();
@@ -54,7 +54,7 @@ public class TownBottomBar extends Container {
 		Button button = new Button(buttonTexture, buttonPressed, buttonHover);
 		button.setVisible(true);
 		button.setLayout(new CentreLayout());
-		button.setBounds(64 + x, 0, 68, 56);
+		button.setBounds(64 + x, 18, 68, 38);
 		
 		Label label = createLabel(color);
 		label.setText(text);
@@ -68,6 +68,7 @@ public class TownBottomBar extends Container {
 		Label label = new Label();
 		
 		label.setFont(ImageCache.getFont("fonts/DSBehrensschrift.ttf"));
+		//label.setFont(ImageCache.getFont("fonts/IrishPenny.ttf"));
 		
 		label.setFontSize(21);
 		
@@ -78,5 +79,9 @@ public class TownBottomBar extends Container {
 		label.setVisible(true);
 		
 		return label;
+	}
+	
+	public Button getShopButton() {
+		return shopButton;
 	}
 }

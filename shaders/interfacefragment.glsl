@@ -11,6 +11,9 @@ out vec4 outColour;
 
 uniform int colourSelector;
 
+uniform float gamma;
+uniform float alpha;
+
 vec4 useColour() {
 	return fs_in.colour;
 }
@@ -27,6 +30,12 @@ vec4 getColour() {
 	}
 }
 
+vec4 gammaCorrection(vec4 fragColour) {
+	fragColour.rgb = pow(fragColour.rgb, vec3(1.0/gamma));
+	return fragColour;
+}
+
 void main(void) {
-	outColour = getColour();
+	outColour = gammaCorrection(getColour());
+	outColour.a = outColour.a * alpha;
 }

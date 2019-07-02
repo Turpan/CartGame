@@ -43,6 +43,7 @@ public class TownTitle extends Container {
 		Label label = new Label();
 		
 		label.setFont(ImageCache.getFont("fonts/DSBehrensschrift.ttf"));
+		//label.setFont(ImageCache.getFont("fonts/IrishPenny.ttf"));
 		
 		label.setFontSize(size);
 		

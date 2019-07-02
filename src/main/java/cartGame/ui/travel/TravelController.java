@@ -6,14 +6,14 @@ import amyInterface.Component;
 import amyInterface.InterfaceController;
 
 public class TravelController extends InterfaceController {
-	private TravelUI ui;
+	private TravelRoot ui;
 	
 	private boolean stopStartPressed;
 	private boolean mapOpenPressed;
 
 	public TravelController() {
 		super();
-		ui = new TravelUI();
+		ui = new TravelRoot();
 		setRoot(ui);
 		setTickThreshold(10);
 	}
@@ -42,9 +42,9 @@ public class TravelController extends InterfaceController {
 		
 		if (clickSource == ui.getMapButton() && event.getMouseAction() == MouseEventAction.PRESS) {
 			mapOpenPressed = true;
-		} else if (clickSource == ui.getStatsButton()) {
-			
 		} else if (clickSource == ui.getMenuButton()) {
+			
+		} else if (clickSource == ui.getStopButton()) {
 			stopStartPressed = true;
 		}
 		

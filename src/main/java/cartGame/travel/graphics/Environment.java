@@ -120,7 +120,8 @@ public class Environment {
 			backdrop.setTexturePosition(TexturePosition.TOP);
 			double[] pos = backdrop.getPosition();
 			pos[0] += (0 - (Backdrop.WIDTH * i)) + start;
-			pos[2] = Cart.ZPOS;
+			pos[1] += 50;
+			pos[2] = Backdrop.DEPTH - dimensions[2];
 			floor.add(backdrop);
 		}
 	}

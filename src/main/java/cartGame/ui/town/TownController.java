@@ -1,6 +1,7 @@
 package cartGame.ui.town;
 
 import amyGLGraphics.IO.MouseEvent;
+import amyGLGraphics.IO.MouseEventAction;
 import amyInterface.Component;
 import amyInterface.InterfaceController;
 import cartGame.travel.towns.Town;
@@ -45,10 +46,12 @@ public class TownController extends InterfaceController {
 			return clickSource;
 		}
 		
-		if (clickSource == root.getMapButton()) {
+		if (clickSource == root.getMapButton() && event.getMouseAction() == MouseEventAction.RELEASE) {
 			mapOpenPressed = true;
-		} else if (clickSource == root.getMenuButton()) {
+		} else if (clickSource == root.getMenuButton() && event.getMouseAction() == MouseEventAction.RELEASE) {
 			
+		} else if (clickSource == root.getShopButton() && event.getMouseAction() == MouseEventAction.RELEASE) {
+			root.switchToShop();
 		}
 		
 		return clickSource;
