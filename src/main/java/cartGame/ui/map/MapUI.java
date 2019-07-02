@@ -1,35 +1,48 @@
 package cartGame.ui.map;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.awt.Color;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import javax.imageio.ImageIO;
-
 import amyGraphics.Texture;
 import amyInterface.Button;
+import amyInterface.CentreLayout;
 import amyInterface.Container;
+import amyInterface.Label;
+import cartGame.io.ImageCache;
 import cartGame.travel.cart.Wagon;
-import cartGame.travel.graphics.Cart;
 import cartGame.travel.towns.Town;
 import cartGame.travel.towns.WorldMap;
-import cartGame.ui.town.TownMenuBar;
-import cartGame.ui.town.TownSideBar;
 
 public class MapUI extends Container {
 	
 	private Map<TownButton, String> buttonIDs = new LinkedHashMap<TownButton, String>();
 	
+	private Button backButton;
+	
 	public MapUI() {
-		Texture texture = loadTexture();
+		Texture texture = ImageCache.getTexture("graphics/ui/map/map.png");
 		addTexture(texture);
 		setActiveTexture(texture);
 		
-		setBounds(0, 0, 640, 360);
+		setBounds(0, 0, 480, 270);
 		
 		setVisible(true);
+		
+		Label backLabel = createLabel();
+		backLabel.setText("Back");
+		
+		Texture backbutton = ImageCache.getTexture("graphics/ui/map/backbutton.png");
+		Texture backpressed = ImageCache.getTexture("graphics/ui/map/backbutton-pressed.png");
+		Texture backhover = ImageCache.getTexture("graphics/ui/map/backbutton-hover.png");
+		
+		backButton = new Button(backbutton, backpressed, backhover);
+		backButton.setVisible(true);
+		backButton.setBounds(409, 235, 68, 32);
+		backButton.setLayout(new CentreLayout());
+		backButton.addChild(backLabel);
+		
+		//addChild(backButton);
 	}
 	
 	public void populateMap(WorldMap map, Wagon wagon) {
@@ -40,7 +53,7 @@ public class MapUI extends Container {
 	
 	public void updateButtons(WorldMap map, Wagon wagon) {
 		for (TownButton button : buttonIDs.keySet()) {
-			setEnabled(false);
+			button.setInteractable(false);
 		}
 		
 		if (wagon.isTravelling()) {
@@ -66,17 +79,24 @@ public class MapUI extends Container {
 		return buttonIDs.get(button);
 	}
 	
-	public Texture loadTexture() {
-		BufferedImage image = null;
-		try {
-			image = ImageIO.read(new File("graphics/ui/map/map.png"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public Button getBackButton() {
+		return backButton;
+	}
+	
+	public Label createLabel() {
+		Label label = new Label();
 		
-		Texture texture = new Texture(image);
+		label.setFont(ImageCache.getFont("fonts/DSBehrensschrift.ttf"));
+		//label.setFont(ImageCache.getFont("fonts/IrishPenny.ttf"));
 		
-		return texture;
+		label.setFontSize(17);
+		
+		label.setColour(new Color(0, 0, 0, 0));
+		
+		label.setFontColour(Color.RED);
+		
+		label.setVisible(true);
+		
+		return label;
 	}
 }

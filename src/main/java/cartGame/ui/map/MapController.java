@@ -4,10 +4,11 @@ import amyGLGraphics.IO.MouseEvent;
 import amyInterface.Button;
 import amyInterface.Component;
 import amyInterface.InterfaceController;
-import cartGame.ui.town.TownUI;
 
 public class MapController extends InterfaceController {
 	String travelRequest;
+	
+	boolean backPressed;
 	
 	MapUI ui;
 
@@ -22,11 +23,21 @@ public class MapController extends InterfaceController {
 		this.travelRequest = travelRequest;
 	}
 	
+	public boolean isBackPressed() {
+		boolean bool = backPressed;
+		backPressed = false;
+		return bool;
+	}
+	
 	public String getTravelRequest() {
 		String travelRequest = this.travelRequest;
 		setTravelRequest(null);
 		
 		return travelRequest;
+	}
+	
+	public MapUI getMapUI() {
+		return ui;
 	}
 	
 	@Override
@@ -37,10 +48,15 @@ public class MapController extends InterfaceController {
 			return clickSource;
 		}
 		
-		if (clickSource instanceof Button) {
+		if (clickSource == ui.getBackButton()) {
+			backPressed = true;
+		}
+		
+		if (clickSource instanceof TownButton) {
 			Button button = (Button) clickSource;
 			
 			String townID = ui.getButtonID(button);
+			setTravelRequest(townID);
 		}
 		
 		return clickSource;

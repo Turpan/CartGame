@@ -8,6 +8,8 @@ public class WorldMap {
 	
 	Graph<Town, Road> towns;
 	
+	Town start;
+	
 	public WorldMap() {
 		towns = new Graph<Town, Road>();
 	}
@@ -18,6 +20,14 @@ public class WorldMap {
 	
 	public void removeTown(Town town) {
 		towns.removeVertex(town);
+	}
+	
+	public void setStart(Town start) {
+		this.start = start;
+	}
+	
+	public Town getStart() {
+		return start;
 	}
 	
 	public Graph<Town, Road> getMap() {

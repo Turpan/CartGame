@@ -21,11 +21,17 @@ public class TravelGraphic extends Room {
 	
 	static final private int BOUNCEINTERVAL = 50;
 	static final private int MINUTEINTERVAL = 5;
-	static final private double SUNSTARTDEGREES = 0;
-	static final private double SUNROTATIONRADIUS = 4000;
+	static final public double SUNSTARTDEGREES = 0;
+	static final public double SUNROTATIONRADIUS = 4000;
+
+	/*static final public double SUNSTARTX = -4000;
+	static final public double SUNSTARTY = 2000;
+	static final public double SUNARCWIDTH = 7000;
+	static final public double SUNPEAKX = (SUNARCWIDTH / 2) + SUNSTARTX;
+	static final public double SUNPEAKY = 4000;*/
 	
-	static final private int SUNRISE = 7;
-	static final private int SUNSET = 19;
+	static final public int SUNRISE = 7;
+	static final public int SUNSET = 19;
 	
 	private List<TravelGraphicListener> listeners;
 	
@@ -335,17 +341,6 @@ public class TravelGraphic extends Room {
 		}
 	}
 	
-	private int getNextEnvironment() {
-		int sign = 1;
-		if (direction == Direction.LEFT) sign = -1;
-		if (environmentOrder.size() == 0) return 0;
-		int index = environmentIndex;
-		index += (1 * sign);
-		if (index >= environmentOrder.size()) index = 0;
-		else if (index < 0) index = environmentOrder.size() - 1;
-		return environmentOrder.get(index);
-	}
-	
 	public void setTime(int hour) {
 		if (hour > backgrounds.size() - 1) {
 			hour = backgrounds.size() - 1;
@@ -380,41 +375,15 @@ public class TravelGraphic extends Room {
 		float blend = ((float) minute / 60.0f);
 		blend = 1.0f - blend;
 		setBackgroundBlend(blend);
-		moveSun();
-	}
-	
-	protected void moveSun() {
-		double degreeStep = 360 / backgrounds.size();
-		
-		double degreePosition = SUNSTARTDEGREES;
-		double degreeOffset = hour + ((double) minute / 60.0);
-		
-		degreePosition += (degreeOffset - SUNRISE) * degreeStep;
-		
-		double z = SUNROTATIONRADIUS * Math.cos(Math.toRadians(degreePosition));
-		double y = SUNROTATIONRADIUS * Math.sin(Math.toRadians(degreePosition));
-		
-		double[] sunPosition = sun.getPosition();
-		sunPosition[1] = y;
-		sunPosition[2] = z;
-		
-		double sunShine = 1.0;
-		
-		if (hour <= SUNRISE + 1) {
-			sunShine = (hour + ((double) minute / 60.0) - (SUNRISE - 1)) / 2;
-		} else if (hour >= SUNSET - 2) {
-			sunShine = (SUNSET - hour + (1 - ((double) minute / 60.0))) / 3;
-		}
-		sun.setDay(sunShine);
-		
+		sun.moveSun(hour, minute);
 		lantern.setNight(hour <= SUNRISE || hour >= SUNSET);
-		//lantern.setNight(false);
 	}
 	
 	public void addBackground(BufferedImage background) {
 		BufferedImage[] backarray = new BufferedImage[] {background};
 		backgrounds.add(backarray);
 		super.addBackground(backarray);
+		sun.setDayLength(backgrounds.size());
 		
 		minute = 60;
 		hour = -1;

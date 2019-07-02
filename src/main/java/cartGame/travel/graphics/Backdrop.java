@@ -6,7 +6,7 @@ import movement.Entity;
 public class Backdrop extends Entity {
 	
 	static final public int WIDTH = 8000;
-	static final public double SPEED = 5;
+	static final public double SPEED = 2;
 	static final public int HEIGHTOFFSET = 150;
 	static final public int DEPTH = 800;
 	

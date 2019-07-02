@@ -9,7 +9,7 @@ import movement.Entity;
 public class Cart extends Entity {
 	static final private int BOUNCE = 0;
 	
-	static final public int ZPOS = -500;
+	static final public int ZPOS = 0;
 	
 	boolean up;
 	
@@ -20,7 +20,7 @@ public class Cart extends Entity {
 		addTexture(texture);
 		setActiveTexture(texture);
 		setDimensions(new double[] {750, 350, 0});
-		setPosition(new double[] {0, 0, 0});
+		setPosition(new double[] {0, 50, ZPOS});
 	}
 	protected Cart (Cart cart) {
 		super(cart);

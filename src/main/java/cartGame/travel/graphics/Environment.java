@@ -97,6 +97,10 @@ public class Environment {
 	}
 	
 	public void addBackdrop(Texture texture, float start, double[] dimensions, int depth) {
+		addBackdrop(texture, start, dimensions, depth, 0);
+	}
+	
+	public void addBackdrop(Texture texture, float start, double[] dimensions, int depth, double height) {
 		if (depth > MAXDEPTH) {
 			depth = MAXDEPTH;
 		}
@@ -105,6 +109,7 @@ public class Environment {
 			Backdrop backdrop = new Backdrop(texture, start, dimensions, depth);
 			double[] pos = backdrop.getPosition();
 			pos[0] += (0 - (Backdrop.WIDTH * i)) + start;
+			pos[1] = height;
 			layers.get(i).add(backdrop);
 		}
 	}
@@ -115,7 +120,8 @@ public class Environment {
 			backdrop.setTexturePosition(TexturePosition.TOP);
 			double[] pos = backdrop.getPosition();
 			pos[0] += (0 - (Backdrop.WIDTH * i)) + start;
-			pos[2] = Cart.ZPOS;
+			pos[1] += 50;
+			pos[2] = Backdrop.DEPTH - dimensions[2];
 			floor.add(backdrop);
 		}
 	}

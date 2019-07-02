@@ -1,23 +1,41 @@
 package cartGame.ui.town;
 
 import amyGLGraphics.IO.MouseEvent;
+import amyGLGraphics.IO.MouseEventAction;
 import amyInterface.Component;
 import amyInterface.InterfaceController;
 import cartGame.travel.towns.Town;
 
 public class TownController extends InterfaceController {
 	
-	TownUI ui;
+	private TownRoot root;
+	
+	private boolean mapOpenPressed;
 
 	public TownController() {
 		super();
-		ui = new TownUI();
-		setRoot(ui);
+		root = new TownRoot();
+		setRoot(root);
 		setTickThreshold(10);
 	}
 	
+	public TownRoot getInterface() {
+		return root;
+	}
+	
+	public void setHour(int hour) {
+		root.setHour(hour);
+	}
+	
 	public void loadTownInfo(Town town) {
-		ui.setTown(town);
+		root.setTown(town);
+	}
+	
+	public boolean isMapOpenPressed() {
+		boolean value = mapOpenPressed;
+		mapOpenPressed = false;
+		
+		return value;
 	}
 
 	@Override
@@ -28,12 +46,12 @@ public class TownController extends InterfaceController {
 			return clickSource;
 		}
 		
-		if (clickSource == ui.getMapButton()) {
+		if (clickSource == root.getMapButton() && event.getMouseAction() == MouseEventAction.RELEASE) {
+			mapOpenPressed = true;
+		} else if (clickSource == root.getMenuButton() && event.getMouseAction() == MouseEventAction.RELEASE) {
 			
-		} else if (clickSource == ui.getStatsButton()) {
-			
-		} else if (clickSource == ui.getMenuButton()) {
-			
+		} else if (clickSource == root.getShopButton() && event.getMouseAction() == MouseEventAction.RELEASE) {
+			root.switchToShop();
 		}
 		
 		return clickSource;
