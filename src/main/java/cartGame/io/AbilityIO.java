@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import cartGame.combat.player.Ability;
+import cartGame.combat.player.abilities.Ability;
 
 public class AbilityIO extends CartGameIO {
 	
@@ -188,15 +188,15 @@ public class AbilityIO extends CartGameIO {
 			}
 			offset += abilityRightLength;
 			
-			Ability ability = new Ability();
-			ability.setID(abilityID);
-			ability.setDuration(abilityDuration);
-			ability.setCooldown(abilityCooldown);
-			ability.setUpAnimationLocation(abilityUpLocation);
-			ability.setDownAnimationLocation(abilityDownLocation);
-			ability.setLeftAnimationLocation(abilityLeftLocation);
-			ability.setRightAnimationLocation(abilityRightLocation);
-			abilities.add(ability);
+//			Ability ability = new Ability();
+//			ability.setID(abilityID);
+//			ability.setDuration(abilityDuration);
+//			ability.setCooldown(abilityCooldown);
+//			ability.setUpAnimationLocation(abilityUpLocation);
+//			ability.setDownAnimationLocation(abilityDownLocation);
+//			ability.setLeftAnimationLocation(abilityLeftLocation);
+//			ability.setRightAnimationLocation(abilityRightLocation);
+//			abilities.add(ability);
 		}
 		
 		//check the footer

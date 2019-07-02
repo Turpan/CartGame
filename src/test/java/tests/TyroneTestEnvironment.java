@@ -3,7 +3,6 @@ package tests;
 import java.util.ArrayList;
 import java.util.List;
 
-import OpenGLTests.CommunismRoom;
 import OpenGLTests.GraphicsTestEnvironment;
 import amyGLGraphics.IO.MouseEvent;
 import amyGLGraphics.IO.MouseEventAction;

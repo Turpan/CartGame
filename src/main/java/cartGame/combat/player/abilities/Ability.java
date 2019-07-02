@@ -1,4 +1,4 @@
-package cartGame.combat.player;
+package cartGame.combat.player.abilities;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -7,13 +7,17 @@ import java.util.List;
 import amyGraphics.Animation;
 import amyGraphics.Texture;
 import cartGame.io.ImageCache;
+import movement.Movable;
 
-public class Ability {
+public abstract class Ability {
 	
 	private String id;
 	
+	private int delay;
 	private int duration;
 	private int cooldown;
+	
+	private boolean activated;
 	
 	private Texture upAnimation;
 	private Texture downAnimation;
@@ -27,6 +31,7 @@ public class Ability {
 	
 	private int durationTimer;
 	private int cooldownTimer;
+	private int delayTimer;
 	
 	public Ability() {
 		
@@ -34,6 +39,7 @@ public class Ability {
 	
 	public Ability(Ability ability) {
 		setID(ability.getID());
+		setDelay(ability.getDelay());
 		setCooldown(ability.getCooldown());
 		setDuration(ability.getDuration());
 		setUpAnimationLocation(ability.getUpAnimationLocation());
@@ -42,28 +48,44 @@ public class Ability {
 		setRightAnimationLocation(ability.getRightAnimationLocation());
 		loadAnimation();
 	}
+	
+	public void triggerAbility(Movable self) {
+		delayTimer = delay;
+		activated = false;
+	}
+	
+	public abstract void collisionEffect(Movable m);	//what happens to the the target when the active parts of a character using this ability hits the corporeal parts of another part.
 
-	public void resetDuration() {
-		durationTimer = 0;
-	}
-	
-	public void resetCooldown() {
-		cooldownTimer = 0;
-	}
-	
-	public void abilityUsed() {
+	public abstract void constantEffect(Movable self);	//occurs every tick after activation
+
+	public void activationEffect(Movable self) { //what happens upon activation of the ability to the character that has this ability.
 		durationTimer = duration;
 		cooldownTimer = cooldown;
+		activated = true;
+		self.resetAbilityHits();
 	}
+		
+	public abstract void endEffect(Movable self); 
+	
+	public boolean prerequisitesMet(Movable self) {
+		return !isCooling();
+	}	
 	
 	public void tick() {
-		if (isActive()) {
+		if (delayOn()) {
+			delayTimer -= 1;
+		}
+		else if (isActive()) {
 			durationTimer -= 1;
 		}
-		
-		if (isCooling()) {
+			
+		else if (isCooling()) {
 			cooldownTimer -= 1;
 		}
+	}
+	
+	public boolean delayOn() {
+		return delayTimer > 0;
 	}
 	
 	public boolean isActive() {
@@ -72,6 +94,10 @@ public class Ability {
 	
 	public boolean isCooling() {
 		return cooldownTimer > 0;
+	}
+	
+	public boolean activated() {
+		return activated;
 	}
 	
 	public void loadAnimation() {
@@ -97,6 +123,14 @@ public class Ability {
 		this.duration = duration;
 	}
 
+	public int getDelay() {
+		return delay;
+	}
+
+	public void setDelay(int delay) {
+		this.delay = delay;
+	}
+	
 	public int getCooldown() {
 		return cooldown;
 	}
@@ -161,4 +195,5 @@ public class Ability {
 		textures.add(rightAnimation);
 		return textures;
 	}
+
 }

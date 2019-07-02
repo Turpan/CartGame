@@ -69,13 +69,7 @@ public class ExpandingCircle extends Attack {
 	}
 
 	@Override
-	public void collision(Obstacle o) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void collision(Movable m, double[] collisionLocationInThis) {
+	public void applyCollisionEffect(Movable m) {
 		// TODO Auto-generated method stub
 		
 	}

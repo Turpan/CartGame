@@ -4,7 +4,7 @@ import amyGraphics.Texture;
 import cartGame.io.ImageCache;
 import movement.Movable;
 import movement.Obstacle;
-import movement.Shapes.BigRectangle;
+import movement.Shapes.Rectangle;
 
 public class TestWall extends Obstacle {
 	
@@ -27,7 +27,7 @@ public class TestWall extends Obstacle {
 		
 		setDimensions(dimensions[wall]);
 		setPosition(positions[wall]);
-		setOutline(new BigRectangle(getDimensions()));
+		setOutline(new Rectangle(getDimensions()));
 		
 
 		setRotationAxis(new double[] {0,1,0});
@@ -38,7 +38,7 @@ public class TestWall extends Obstacle {
 		if (wall != 3) {
 			texture =  ImageCache.getTexture("graphics/combat/main test/arena/green.png");
 		} else {
-			texture = null;
+			texture = ImageCache.getTexture("graphics/editor/blank.png");
 		}
 		addTexture(texture);
 		setActiveTexture(texture);
@@ -52,7 +52,7 @@ public class TestWall extends Obstacle {
 		return new TestWall(this);
 	}
 	@Override
-	public void collision(Movable m, double[] collisionLocationInThis) {
+	public void collision(Movable m) {
 		// TODO Auto-generated method stub
 		
 	}

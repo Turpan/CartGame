@@ -8,8 +8,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import cartGame.combat.player.Ability;
 import cartGame.combat.player.Player;
+import cartGame.combat.player.abilities.Ability;
 import cartGame.travel.towns.Town;
 
 public class CharacterIO extends CartGameIO {

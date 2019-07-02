@@ -7,49 +7,86 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 import OpenGLTests.TestDirLight;
 import OpenGLTests.TestLight;
-import amyGraphics.Animation;
 import cartGame.combat.player.Arena;
-import cartGame.combat.player.Player;
+import cartGame.combat.player.Being;
+import cartGame.combat.player.abilities.Ability;
+import cartGame.combat.player.abilities.AttackAbility;
+import cartGame.combat.player.abilities.JumpAbility;
 import movement.Entity;
 import movement.MovableStateWrapper;
 import movement.Shapes.Ellipse;
-import movement.Shapes.Parabaloid;
-import movement.Shapes.StandardShape;
+import movement.Shapes.OutlineShape;
 
 public class TestArena extends Arena {
 	public TestArena() {
 		super();
-		Player player = new TestCharacter();
-		player.setPosition(new double[] {0, 0, 0});
-		player.setDimensions(new double[] {1000, 1000, 200});
-		HashMap<StandardShape, MovableStateWrapper> playerState0 = new HashMap<StandardShape, MovableStateWrapper>();
-		playerState0.put(new Ellipse(player.getDimensions()), new MovableStateWrapper(new double[]{0,0,0}, false));
-		HashMap<StandardShape, MovableStateWrapper> playerState1 = new HashMap<StandardShape, MovableStateWrapper>();
-		playerState1.put(new Ellipse(player.getDimensions()), new MovableStateWrapper(new double[]{0,0,0}, false));
-		playerState1.put(new Parabaloid(new double[] {100,100,100},1,0,5,false), new MovableStateWrapper(new double[]{1000,600,50}, true ));
-		var playerStates = new ArrayList<Map<StandardShape, MovableStateWrapper>>();
-		playerStates.add(playerState0);
+		Being player = new TestBeing();
+		player.setPosition(new double[] {0, 1000, 0});
+		HashMap<OutlineShape, MovableStateWrapper> playerState0 = new HashMap<OutlineShape, MovableStateWrapper>();
+		HashMap<OutlineShape, MovableStateWrapper> playerState1 = new HashMap<OutlineShape, MovableStateWrapper>();
+		playerState0.put(new Ellipse(new double[] {200, 1000, 200}), new MovableStateWrapper(new double[]{0,0,0}, false, false));
+		playerState1.put(new Ellipse(new double[] {200, 1000, 200}), new MovableStateWrapper(new double[]{0,0,0}, false, false));
+		playerState1.put(new Ellipse(new double[] {100,100,100}), new MovableStateWrapper(new double[]{200,550,50},false, true));
+		var playerStates = new ArrayList<Map<OutlineShape, MovableStateWrapper>>();
+		playerStates.add(playerState1);
 		playerStates.add(playerState1);
 		player.setStates(playerStates);
 		
-		player.setRotationAxis(new double[] {0,1,0});
-		player.setAngle(0);
-		player.setCentreOfRotation(new double[] {500,500,100});
-		setPlayer(player);
+		Ability[] abilities = new Ability[3];
+		abilities[0] = new AttackAbility();
+		abilities[1] = new JumpAbility();
+		player.setAbilities(abilities, new int[] {1,0});
 		
-//		Player player2 = new TestCharacter();
-//		player2.setPosition(new double[] {0, 2000, 0});
-//		player2.setDimensions(new double[] {1000, 1000, 200});
-//		player2.setSimpleOutline(new Ellipse(player.getDimensions()));
-//		player2.setRotationAxis(new double[] {0,1,0});
-//		player2.setAngle(0);
-//		player2.setCentreOfRotation(new double[] {500,500,100});
-//		addEntity(player2);
+		player.setRotationAxis(new double[] {0,1,0});
+		player.setCentreOfRotation(new double[] {100,500,100});
+		setPlayer(player);
+
+		Being player2 = new TestBeing();
+		player2.setPosition(new double[] {2500, 1, 0});
+		player2.setSimpleOutline(new Ellipse(new double[] {200,1000,200}));
+		player2.setRotationAxis(new double[] {0,1,0});
+		player2.setAngle(0);
+		player2.setCentreOfRotation(new double[] {500,500,100});
+//		
+//		Player player3 = new TestBeing();
+//		player3.setPosition(new double[] {1500, 1, -80});
+//		player3.setSimpleOutline(new Ellipse(new double[] {200,1000,200}));
+//		player3.setRotationAxis(new double[] {0,1,0});
+//		player3.setAngle(0);
+//		player3.setCentreOfRotation(new double[] {500,500,100});
+//		
+//		Player player4 = new TestBeing();
+//		player4.setPosition(new double[] {2000, 1, 80});
+//		player4.setSimpleOutline(new Ellipse(new double[] {200,1000,200}));
+//		player4.setRotationAxis(new double[] {0,1,0});
+//		player4.setAngle(0);
+//		player4.setCentreOfRotation(new double[] {500,500,100});
+//		
+//		Player player5 = new TestBeing();
+//		player5.setPosition(new double[] {1000, 1, 40});
+//		player5.setSimpleOutline(new Ellipse(new double[] {200,1000,200}));
+//		player5.setRotationAxis(new double[] {0,1,0});
+//		player5.setAngle(0);
+//		player5.setCentreOfRotation(new double[] {500,500,100});
+//		
+//		Player player6 = new TestBeing();
+//		player6.setPosition(new double[] {-1000, 1, 20});
+//		player6.setSimpleOutline(new Ellipse(new double[] {200,1000,200}));
+//		player6.setRotationAxis(new double[] {0,1,0});
+//		player6.setAngle(0);
+//		player6.setCentreOfRotation(new double[] {500,500,100});
+//		
+		addEntity(player2);
+//		addEntity(player3);
+//		addEntity(player4);
+//		addEntity(player5);
+//		addEntity(player6);
 		
 		Entity dirLight = new TestDirLight();
 		dirLight.setPosition(new double[] {-6000, 8000, -4000});
