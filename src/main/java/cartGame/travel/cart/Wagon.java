@@ -3,7 +3,7 @@ package cartGame.travel.cart;
 import cartGame.travel.towns.Town;
 
 public class Wagon {
-	double speed;
+	double speed = 10;
 	
 	double position;
 	

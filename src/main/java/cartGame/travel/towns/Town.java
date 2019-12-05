@@ -22,6 +22,15 @@ public class Town {
 	private String introLocation;
 	private Texture intro;
 	
+	private String mapLocation;
+	private Texture map;
+	
+	private String mapHoverLocation;
+	private Texture mapHover;
+	
+	private String mapPresentLocation;
+	private Texture mapPresent;
+	
 	private Shop shop;
 	
 	public Town() {
@@ -43,6 +52,15 @@ public class Town {
 		}
 		if (intro == null) {
 			intro = ImageCache.getTexture(introLocation);
+		}
+		if (map == null) {
+			map = ImageCache.getTexture(mapLocation);
+		}
+		if (mapHover == null) {
+			mapHover = ImageCache.getTexture(mapHoverLocation);
+		}
+		if (mapPresent == null) {
+			mapPresent = ImageCache.getTexture(mapPresentLocation);
 		}
 	}
 	
@@ -132,6 +150,42 @@ public class Town {
 
 	public void setIntro(Texture intro) {
 		this.intro = intro;
+	}
+
+	public String getMapLocation() {
+		return mapLocation;
+	}
+
+	public void setMapLocation(String mapLocation) {
+		this.mapLocation = mapLocation;
+	}
+
+	public String getMapHoverLocation() {
+		return mapHoverLocation;
+	}
+
+	public void setMapHoverLocation(String mapHoverLocation) {
+		this.mapHoverLocation = mapHoverLocation;
+	}
+
+	public String getMapPresentLocation() {
+		return mapPresentLocation;
+	}
+
+	public void setMapPresentLocation(String mapPresentLocation) {
+		this.mapPresentLocation = mapPresentLocation;
+	}
+
+	public Texture getMap() {
+		return map;
+	}
+
+	public Texture getMapHover() {
+		return mapHover;
+	}
+
+	public Texture getMapPresent() {
+		return mapPresent;
 	}
 
 	public void setShop(Shop shop) {

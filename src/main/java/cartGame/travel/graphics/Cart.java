@@ -50,5 +50,4 @@ public class Cart extends Entity {
 		
 		position[1] = y;
 	}
-
 }

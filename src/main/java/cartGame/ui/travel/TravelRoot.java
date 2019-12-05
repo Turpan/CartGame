@@ -20,6 +20,14 @@ public class TravelRoot extends Container {
 		addChild(bottomBar);
 	}
 	
+	public TravelTopBar getTopBar() {
+		return topBar;
+	}
+	
+	public TravelBottomBar getBottomBar() {
+		return bottomBar;
+	}
+	
 	public Component getMapButton() {
 		return topBar.getMapButton();
 	}

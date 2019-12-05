@@ -8,8 +8,8 @@ import cartGame.io.ImageCache;
 
 public class TravelTopBar extends Container {
 	
-	private Component clock;
-	private Component resources;
+	private TravelClock clock;
+	private TravelResources resources;
 	private Button mapButton;
 	private Button menuButton;
 
@@ -18,19 +18,9 @@ public class TravelTopBar extends Container {
 		
 		setBounds(0, 0, 480, 65);
 		
-		clock = new Component();
-		Texture clockTexture = ImageCache.getTexture("graphics/ui/travel/clock.png");
-		clock.addTexture(clockTexture);
-		clock.setActiveTexture(clockTexture);
-		clock.setVisible(true);
-		clock.setBounds(3, 0, 51, 65);
+		clock = new TravelClock();
 		
-		resources = new Component();
-		Texture resourceTexture = ImageCache.getTexture("graphics/ui/travel/resourcebar.png");
-		resources.addTexture(resourceTexture);
-		resources.setActiveTexture(resourceTexture);
-		resources.setVisible(true);
-		resources.setBounds(59, 0, 139, 45);
+		resources = new TravelResources();
 		
 		Texture mapTexture = ImageCache.getTexture("graphics/ui/travel/mapbutton.png");
 		Texture mapHover = ImageCache.getTexture("graphics/ui/travel/mapbutton-hover.png");
@@ -52,6 +42,14 @@ public class TravelTopBar extends Container {
 		addChild(resources);
 		addChild(mapButton);
 		addChild(menuButton);
+	}
+	
+	public TravelClock getClock() {
+		return clock;
+	}
+	
+	public TravelResources getResourceBar() {
+		return resources;
 	}
 	
 	public Button getMapButton() {

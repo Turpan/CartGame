@@ -1,30 +1,17 @@
 package tests;
 
-import java.awt.Color;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.imageio.ImageIO;
-
-import OpenGLTests.CommunismRoom;
 import OpenGLTests.GraphicsTestEnvironment;
 import amyGLGraphics.IO.MouseEvent;
 import amyGLGraphics.IO.MouseEventAction;
 import amyInterface.Button;
 import amyInterface.Component;
-import amyInterface.InterfaceController;
-import cartGame.core.TravelMain;
-import cartGame.io.GraphicsQueue;
-import cartGame.travel.graphics.TravelGraphic;
-import cartGame.ui.map.MapController;
 import cartGame.ui.town.TownController;
 import cartGame.ui.travel.TravelController;
 import movement.Room;
 import tests.towns.EastMighter;
-import tests.towns.ShepardTown;
 
 public class GabbyTestEnvironment extends GraphicsTestEnvironment{
 	
@@ -57,7 +44,7 @@ public class GabbyTestEnvironment extends GraphicsTestEnvironment{
 		
 		town = new TownController();
 		town.loadTownInfo(new EastMighter());
-		town.setHour(5);
+		town.setHour(12);
 		scenes.add(town.getRoot());
 		
 		//travel = new TravelController();

@@ -36,7 +36,8 @@ public class TravelMain implements TravelGraphicListener, TravelManagerListener 
 		ui = new TravelController();
 		
 		//TODO remove later
-		graphics = new TestTravel();
+		//graphics = new TestTravel();
+		graphics = new TravelGraphic();
 		graphics.addListener(this);
 	}
 	
@@ -44,7 +45,7 @@ public class TravelMain implements TravelGraphicListener, TravelManagerListener 
 		return ui;
 	}
 	
-	public Room getGraphic() {
+	public TravelGraphic getGraphic() {
 		return graphics;
 	}
 	
@@ -92,6 +93,16 @@ public class TravelMain implements TravelGraphicListener, TravelManagerListener 
 			graphics.setEnvironmentOrder(environmentOrder);
 		}
 	}
+
+	public void setEnvironmentPool(Map<String, List<Environment>> environmentPool) {
+		this.environmentPool.clear();
+		
+		for (String biomeID : environmentPool.keySet()) {
+			for (Environment environment : environmentPool.get(biomeID)) {
+				addEnvironment(biomeID, environment);
+			}
+		}
+	}
 	
 	public void addEnvironment(String biomeID, Environment environment) {
 		if (environmentPool.containsKey(biomeID)) {
@@ -120,11 +131,14 @@ public class TravelMain implements TravelGraphicListener, TravelManagerListener 
 		
 		graphics.tick();
 		ui.tick();
+		ui.updateTime(graphics.getHour(), graphics.getMinute());
 		
 		if (graphics.hourPassed()) {
 			manager.travel();
 			
 			Road road = manager.getCurrentRoad();
+			if (road == null) return;
+			
 			double distanceTotal = 0;
 			for (String biomeID : road.getBiomes().keySet()) {
 				double distance = road.getBiomes().get(biomeID);

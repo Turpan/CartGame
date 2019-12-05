@@ -1,29 +1,46 @@
 package cartGame.ui.map;
 
-import amyGraphics.Texture;
 import amyInterface.Button;
-import cartGame.io.ImageCache;
+import cartGame.travel.towns.Town;
 
 public class TownButton extends Button {
 	
-	private static final int width = 40;
-	private static final int height = 40;
+	private boolean present;
+	private Town town;
 	
-	public TownButton(int x, int y) {
+	public TownButton(Town town) {
+		this.town = town;
+		
 		setVisible(true);
 		setInteractable(true);
 		
-		setButtonTextures(getTexture(), getPressedTexture(), null);
+		int width = town.getMap().getWidth();
+		int height = town.getMap().getHeight();
 		
-		setBounds(x, y, width, height);
+		setButtonTextures(town.getMap(), town.getMapHover(), town.getMapHover());
+		addTexture(town.getMapPresent());
+		
+		setBounds(town.getMapX(), town.getMapY(), width, height);
 	}
 	
-	private Texture getTexture() {
-		return ImageCache.getTexture("graphics/ui/map/town.png");
+	public void setPresent(boolean present) {
+		this.present = present;
+		
+		if (present) {
+			setActiveTexture(town.getMapPresent());
+		}
+		
+		updateButtonTexture();
 	}
 	
-	private Texture getPressedTexture() {
-		return ImageCache.getTexture("graphics/ui/map/town-pressed.png");
+	public Town getTown() {
+		return town;
 	}
 
+	@Override
+	public void updateButtonTexture() {
+		if (!present) {
+			super.updateButtonTexture();
+		}
+	}
 }

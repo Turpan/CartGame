@@ -4,6 +4,8 @@ import amyGLGraphics.IO.MouseEvent;
 import amyGLGraphics.IO.MouseEventAction;
 import amyInterface.Component;
 import amyInterface.InterfaceController;
+import cartGame.travel.cart.Inventory;
+import cartGame.travel.cart.Party;
 
 public class TravelController extends InterfaceController {
 	private TravelRoot ui;
@@ -31,6 +33,23 @@ public class TravelController extends InterfaceController {
 		
 		return value;
 	}
+	
+	public void setParty(Party party) {
+		ui.getTopBar().getResourceBar().setInventory(party.getInventory());
+		ui.getBottomBar().getHealthPlate().setParty(party);
+	}
+	
+	public void updateTime(int hour, int minute) {
+		ui.getTopBar().getClock().update(hour, minute);
+	}
+	
+	@Override
+	public void tick() {
+		super.tick();
+		
+		ui.getTopBar().getResourceBar().update();
+		ui.getBottomBar().getHealthPlate().update();
+	}
 
 	@Override
 	protected Component processInput(MouseEvent event) {
@@ -44,7 +63,7 @@ public class TravelController extends InterfaceController {
 			mapOpenPressed = true;
 		} else if (clickSource == ui.getMenuButton()) {
 			
-		} else if (clickSource == ui.getStopButton()) {
+		} else if (clickSource == ui.getStopButton() && event.getMouseAction() == MouseEventAction.PRESS) {
 			stopStartPressed = true;
 		}
 		

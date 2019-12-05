@@ -33,6 +33,10 @@ public class TravelBottomBar extends Container {
 		addChild(stopButton);
 	}
 	
+	public TravelHealthPlate getHealthPlate() {
+		return healthPlate;
+	}
+	
 	public Button getStopButton() {
 		return stopButton;
 	}

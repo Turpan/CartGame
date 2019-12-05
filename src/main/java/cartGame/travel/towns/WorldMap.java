@@ -39,10 +39,15 @@ public class WorldMap {
 	}
 	
 	public void addConnection(Town from, Town to, Road road) {
+		Road returnRoad = Road.createReturnRoad(road);
+		
 		towns.addEdge(from, to, road);
+		towns.addEdge(to, from, returnRoad);
 	}
 	
 	public void removeConnection(Town from, Town to) {
 		towns.removeEdge(from, to);
 	}
+	
+	
 }

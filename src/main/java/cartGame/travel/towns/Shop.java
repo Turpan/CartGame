@@ -32,12 +32,32 @@ public class Shop {
 		return goods.keySet();
 	}
 	
+	public Item getItem(String ID) {
+		for (Item item : goods.keySet()) {
+			if (item.getID().equals(ID)) return item;
+		}
+		
+		return null;
+	}
+	
 	public boolean hasItem(Item item) {
 		return goods.containsKey(item);
 	}
 	
+	public boolean hasItem(String ID) {
+		for (Item item : goods.keySet()) {
+			if (item.getID().equals(ID)) return true;
+		}
+		
+		return false;
+	}
+	
 	public int getItemPrice(Item item) {
-		return goods.get(item);
+		if (goods.containsKey(item)) {
+			return goods.get(item);
+		}
+		
+		return 0;
 	}
 
 }

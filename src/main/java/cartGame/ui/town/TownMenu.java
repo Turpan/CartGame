@@ -22,10 +22,21 @@ public class TownMenu extends TownSky {
 		loadSky();
 	}
 	
+	@Override
+	public void setHour(int hour) {
+		super.setHour(hour);
+		
+		topBar.getClock().setHour(hour);
+	}
+	
 	public void setTown(Town town) {
 		townBackground.addTexture(town.getBackground());
 		townBackground.setActiveTexture(town.getBackground());
 		topBar.setTown(town);
+	}
+	
+	public void setShopEnabled(boolean enabled) {
+		bottomBar.setShopEnabled(enabled);
 	}
 	
 	public Button getMapButton() {
@@ -38,5 +49,13 @@ public class TownMenu extends TownSky {
 	
 	public Button getShopButton() {
 		return bottomBar.getShopButton();
+	}
+
+	public TownTopBar getTopBar() {
+		return topBar;
+	}
+	
+	public TownBottomBar getBottomBar() {
+		return bottomBar;
 	}
 }

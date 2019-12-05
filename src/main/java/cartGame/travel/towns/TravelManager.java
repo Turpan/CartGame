@@ -3,11 +3,13 @@ package cartGame.travel.towns;
 import java.util.ArrayList;
 import java.util.List;
 
+import cartGame.travel.cart.Party;
 import cartGame.travel.cart.Wagon;
 import movement.mathDS.Graph;
 
 public class TravelManager {
 	private Wagon wagon = new Wagon();
+	private Party party = new Party();
 	
 	private WorldMap map = new WorldMap();
 	
@@ -25,8 +27,17 @@ public class TravelManager {
 		return wagon;
 	}
 	
+	public Party getParty() {
+		return party;
+	}
+
+	public void setParty(Party party) {
+		this.party = party;
+	}
+
 	public void setMap(WorldMap map) {
 		this.map = map;
+		wagon.setCurrentTown(map.getStart());
 	}
 	
 	public WorldMap getMap() {
@@ -73,7 +84,8 @@ public class TravelManager {
 			Graph<Town, Road> map = this.map.getMap();
 			Road toTravel = map.getEdgeValue(wagon.getCurrentTown(), wagon.getDestinationTown());
 			
-			wagon.addPosition(wagon.getPosition() + wagon.getSpeed());
+			wagon.addPosition(wagon.getSpeed());
+			party.eat();
 			
 			if (wagon.getPosition() >= toTravel.getDistance()) {
 				wagon.setCurrentTown(wagon.getDestinationTown());

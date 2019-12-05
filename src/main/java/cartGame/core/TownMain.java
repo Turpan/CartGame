@@ -1,6 +1,10 @@
 package cartGame.core;
 
-import cartGame.io.GraphicsQueue;
+import java.util.ArrayList;
+import java.util.List;
+
+import amyGLGraphics.IO.GraphicsQueue;
+import cartGame.travel.cart.Inventory;
 import cartGame.travel.towns.Town;
 import cartGame.ui.town.TownController;
 
@@ -10,8 +14,18 @@ public class TownMain {
 	
 	private TownController activeTown;
 	
+	private Inventory inventory;
+	
 	public TownMain() {
 		
+	}
+	
+	public void setActiveTown() {
+		activeTown = fromTown;
+	}
+	
+	public void setInventory(Inventory inventory) {
+		this.inventory = inventory;
 	}
 	
 	public TownController getFromTown() {
@@ -45,11 +59,13 @@ public class TownMain {
 	public void createFromTownInterface(Town town) {
 		fromTown = new TownController();
 		fromTown.loadTownInfo(town);
+		fromTown.setInventory(inventory);
 	}
 	
 	public void createToTownInterface(Town town) {
 		toTown = new TownController();
 		toTown.loadTownInfo(town);
+		toTown.setInventory(inventory);
 	}
 	
 	public void arrivedAtTown() {
@@ -60,6 +76,8 @@ public class TownMain {
 		toTown = null;
 		
 		activeTown = fromTown;
+		
+		GraphicsQueue.setSceneToSwitch(activeTown.getRoot());
 	}
 	
 }

@@ -1,7 +1,9 @@
 package cartGame.ui.map;
 
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import amyGraphics.Texture;
@@ -16,7 +18,9 @@ import cartGame.travel.towns.WorldMap;
 
 public class MapUI extends Container {
 	
-	private Map<TownButton, String> buttonIDs = new LinkedHashMap<TownButton, String>();
+	private List<TownButton> buttons = new ArrayList<TownButton>();
+	
+	private WorldMap map;
 	
 	private Button backButton;
 	
@@ -42,41 +46,65 @@ public class MapUI extends Container {
 		backButton.setLayout(new CentreLayout());
 		backButton.addChild(backLabel);
 		
-		//addChild(backButton);
+		addChild(backButton);
 	}
 	
-	public void populateMap(WorldMap map, Wagon wagon) {
+	public void setMap(WorldMap map) {
+		this.map = map;
+		
+		populateMap();
+	}
+	
+	public void populateMap() {
+		if (map == null) return;
+		
 		for (Town town : map.getTowns()) {
 			addTownButton(town);
 		}
 	}
 	
-	public void updateButtons(WorldMap map, Wagon wagon) {
-		for (TownButton button : buttonIDs.keySet()) {
-			button.setInteractable(false);
-		}
+	public void updateButtons(Wagon wagon) {
+		if (map == null) return;
 		
 		if (wagon.isTravelling()) {
 			return;
 		}
 		
+		Town presentTown = wagon.getCurrentTown();
 		
+		for (TownButton button : buttons) {
+			boolean present = false;
+			if (button.getTown().equals(presentTown)) {
+				present = true;
+			}
+			
+			button.setPresent(present);
+		}
+		
+		backButton.setPressed(false);
+		backButton.updateButtonTexture();
 	}
 	
 	public void addTownButton(Town town) {
-		TownButton button = new TownButton(town.getMapX(), town.getMapY());
+		TownButton button = new TownButton(town);
 		
 		addChild(button);
-		buttonIDs.put(button, town.getID());
+		buttons.add(button);
 	}
 	
 	public void removeTownButton(Button button) {
 		removeChild(button);
-		buttonIDs.remove(button);
+		buttons.remove(button);
 	}
 	
 	public String getButtonID(Button button) {
-		return buttonIDs.get(button);
+		for (TownButton tbutton : buttons) {
+			if (button.equals(tbutton)) {
+				return tbutton.getTown().getID();
+			}
+		}
+		
+		return null;
 	}
 	
 	public Button getBackButton() {

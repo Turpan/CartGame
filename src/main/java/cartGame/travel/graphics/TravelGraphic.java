@@ -1,19 +1,11 @@
 package cartGame.travel.graphics;
 
-import java.awt.Color;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
-import javax.imageio.ImageIO;
-
-import amyGraphics.Texture;
-import amyGraphics.TexturePosition;
+import cartGame.io.ImageCache;
 import cartGame.travel.graphics.Backdrop.Direction;
 import movement.Room;
 
@@ -82,11 +74,30 @@ public class TravelGraphic extends Room {
 		sun = new Sun();
 		moon = new Moon();
 		
+		setCameraPosition(new double[] {-2000, -2000, 8000});
+		setCameraCentre(new double[] {-2000, -3700, 0});
+		
 		addEntity(cart);
 		addEntity(lantern);
 		
 		addEntity(sun);
 		addEntity(moon);
+		
+		loadSky();
+	}
+	
+	protected void loadSky() {
+		addBackground(ImageCache.getTexture("graphics/travel/sky/" + 12 + "am.png").getSprite());
+		
+		for (int i=1; i<12; i++) {
+			addBackground(ImageCache.getTexture("graphics/travel/sky/" + i + "am.png").getSprite());
+		}
+		
+		addBackground(ImageCache.getTexture("graphics/travel/sky/" + 12 + "pm.png").getSprite());
+		
+		for (int i=1; i<12; i++) {
+			addBackground(ImageCache.getTexture("graphics/travel/sky/" + i + "pm.png").getSprite());
+		}
 	}
 	
 	public void addListener(TravelGraphicListener listener) {
@@ -339,6 +350,14 @@ public class TravelGraphic extends Room {
 				}
 			}
 		}
+	}
+	
+	public int getHour() {
+		return hour;
+	}
+	
+	public int getMinute() {
+		return minute;
 	}
 	
 	public void setTime(int hour) {

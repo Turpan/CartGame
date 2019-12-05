@@ -4,10 +4,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import OpenGLTests.GraphicsTestWindow;
-import amyInterface.Component;
 import cartGame.core.CartGameCore;
-import cartGame.io.GraphicsQueue;
-import movement.Room;
 
 public class CartGameTest {
 	protected GraphicsTestWindow window;
@@ -48,34 +45,6 @@ public class CartGameTest {
 	
 	protected void tick() {
 		core.tick();
-		
-		Room room;
-		while ((room = GraphicsQueue.getNextRoomToAdd()) != null) {
-			window.addRoom(room);
-		}
-		
-		while ((room = GraphicsQueue.getNextRoomToRemove()) != null) {
-			window.removeRoom(room);
-		}
-		
-		room = GraphicsQueue.getRoomToSwitch();
-		if (room != null) {
-			window.setActiveRoom(room);
-		}
-		
-		Component scene;
-		while((scene = GraphicsQueue.getNextSceneToAdd()) != null) {
-			window.addScene(scene);
-		}
-		
-		while ((scene = GraphicsQueue.getNextSceneToRemove()) != null) {
-			window.removeScene(scene);
-		}
-		
-		scene = GraphicsQueue.getSceneToSwitch();
-		if (scene != null) {
-			window.setActiveScene(scene);
-		}
 	}
 	
 	public static void main(String[] args) {

@@ -12,6 +12,12 @@ public class EastMighter extends Town {
 		setBackgroundLocation("graphics/towns/east_mighter/background.png");
 		setIconLocation("");
 		setIntroLocation("");
+		setMapX(195);
+		setMapY(100);
+		setMapLocation("graphics/towns/east_mighter/map.png");
+		setMapHoverLocation("graphics/towns/east_mighter/map-hover.png");
+		setMapPresentLocation("graphics/towns/east_mighter/map-present.png");
+		setShop(new DefaultShop());
 		
 		loadImage();
 	}

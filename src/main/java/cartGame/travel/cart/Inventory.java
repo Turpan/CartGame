@@ -1,49 +1,88 @@
 package cartGame.travel.cart;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import cartGame.resources.Item;
 
 public class Inventory {
 	
-	Map<String, List<Item>> items;
+	public static final Item food = new Item();
+	public static final Item scrap = new Item();
+	public static final Item medicine = new Item();
+	
+	private int money;
+	private Map<Item, Integer> items = new HashMap<Item, Integer>();
 	
 	public Inventory() {
-		items = new HashMap<String, List<Item>>();
-	}
-	
-	public void addItemCatagory(String type) {
-		List<Item> list = new ArrayList<Item>();
+		food.setID("food");
+		scrap.setID("scrap");
+		medicine.setID("medicine");
 		
-		items.put(type, list);
+		setMoney(200);
+		
+		addItem(food, 4);
+		addItem(scrap, 4);
+		addItem(medicine, 1);
 	}
 	
-	public void removeItemCatagory(String type) {
-		items.remove(type);
+	public Item getItem(String id) {
+		for (Item item : items.keySet()) {
+			if (item.getID().equals(id)) {
+				return item;
+			}
+		}
+		
+		return null;
 	}
 	
-	public void addItem(String type, Item item) {
-		items.get(type).add(item);
+	public void addMoney(int change) {
+		money += change;
 	}
 	
-	public void addItem(String type, Collection<Item> item) {
-		items.get(type).addAll(item);
+	public void setMoney(int money) {
+		this.money = money;
 	}
 	
-	public void removeItem(String type, Item item) {
-		items.get(type).remove(item);
+	public int getMoney() {
+		return money;
 	}
 	
-	public void removeItem(String type, Collection<Item> item) {
-		items.get(type).removeAll(item);
+	public void addItem(Item item, int amount) {
+		if (amount == 0) return;
+		
+		int count = 0;
+		
+		if (items.containsKey(item)) {
+			count = items.get(item);
+			amount += count;
+		}
+		
+		items.put(item, amount);
 	}
 	
-	public Map<String, List<Item>> getItems() {
-		return items;
+	public int getItemCount(Item item) {
+		int amount = 0;
+		
+		if (items.containsKey(item)) {
+			amount = items.get(item);
+		}
+		
+		return amount;
+	}
+	
+	public boolean isItemPresent(Item item, int amount) {
+		if (!items.containsKey(item)) {
+			return false;
+		}
+		
+		int count = items.get(item);
+		
+		return count >= amount;
+	}
+	
+	public boolean isItemPresent(Item item) {
+		return isItemPresent(item, 1);
 	}
 
 }

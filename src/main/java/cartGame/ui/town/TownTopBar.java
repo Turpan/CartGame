@@ -9,8 +9,8 @@ import cartGame.travel.towns.Town;
 
 public class TownTopBar extends Container {
 	
-	private Component clock;
-	private Component resources;
+	private TownClock clock;
+	private TownResource resources;
 	private TownTitle title;
 	private Button mapButton;
 	private Button menuButton;
@@ -20,19 +20,9 @@ public class TownTopBar extends Container {
 		
 		setBounds(0, 0, 480, 65);
 		
-		clock = new Component();
-		Texture clockTexture = ImageCache.getTexture("graphics/ui/town/clock.png");
-		clock.addTexture(clockTexture);
-		clock.setActiveTexture(clockTexture);
-		clock.setVisible(true);
-		clock.setBounds(3, 0, 51, 65);
+		clock = new TownClock();
 		
-		resources = new Component();
-		Texture resourceTexture = ImageCache.getTexture("graphics/ui/town/resourcebar.png");
-		resources.addTexture(resourceTexture);
-		resources.setActiveTexture(resourceTexture);
-		resources.setVisible(true);
-		resources.setBounds(59, 0, 139, 45);
+		resources = new TownResource();
 		
 		title = new TownTitle();
 		
@@ -69,6 +59,14 @@ public class TownTopBar extends Container {
 	
 	public Button getMenuButton() {
 		return menuButton;
+	}
+	
+	public TownResource getResourceBar() {
+		return resources;
+	}
+
+	public TownClock getClock() {
+		return clock;
 	}
 	
 }

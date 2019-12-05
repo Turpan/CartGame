@@ -1,6 +1,9 @@
 package cartGame.travel.towns;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Road {
@@ -41,6 +44,23 @@ public class Road {
 	
 	public void removeBiome(String biomeID) {
 		biomes.remove(biomeID);
+	}
+	
+	public static Road createReturnRoad(Road road) {
+		Road returnRoad = new Road();
+		returnRoad.setID(road.getID());
+		returnRoad.setDistance(road.getDistance());
+		List<String> biomes = new ArrayList<String>(road.getBiomes().keySet());
+		Collections.reverse(biomes);
+		double lastStop = 0;
+		for (String biome : biomes) {
+			double distance = road.getBiomes().get(biome);
+			
+			returnRoad.addBiome(biome, 0 + lastStop);
+			lastStop = 1000 - distance;
+		}
+		
+		return returnRoad;
 	}
 
 }

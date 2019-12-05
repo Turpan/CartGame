@@ -1,13 +1,21 @@
 package cartGame.ui.town;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import amyInterface.Button;
 import amyInterface.Container;
+import cartGame.travel.cart.Inventory;
 import cartGame.travel.towns.Town;
+import cartGame.ui.town.shop.TownShop;
 
 public class TownRoot extends Container {
 	
 	private TownMenu menu;
 	private TownShop shop;
+	
+	private int hour;
 	
 	public TownRoot() {
 		super();
@@ -16,6 +24,8 @@ public class TownRoot extends Container {
 		
 		menu = new TownMenu();
 		shop = new TownShop();
+		
+		menu.setShopEnabled(false);
 		
 		addChild(menu);
 		addChild(shop);
@@ -35,11 +45,20 @@ public class TownRoot extends Container {
 	
 	public void setTown(Town town) {
 		menu.setTown(town);
+		shop.setShop(town.getShop());
+		
+		menu.setShopEnabled(town.getShop() != null);
 	}
 	
 	public void setHour(int hour) {
+		this.hour = hour;
+		
 		menu.setHour(hour);
 		shop.setHour(hour);
+	}
+	
+	public int getHour() {
+		return hour;
 	}
 	
 	public Button getMapButton() {
@@ -54,5 +73,33 @@ public class TownRoot extends Container {
 		return menu.getShopButton();
 	}
 	
+	public TownMenu getMenu() {
+		return menu;
+	}
 	
+	public TownShop getShop() {
+		return shop;
+	}
+	
+	public List<Button> getBackButtons() {
+		List<Button> buttons = new ArrayList<Button>();
+		buttons.add(shop.getBackButton());
+		return buttons;
+	}
+
+	public List<Button> getShopAddButtons() {
+		return Arrays.asList(shop.getShopPanel().getAddButtons());
+	}
+
+	public List<Button> getShopRemoveButtons() {
+		return Arrays.asList(shop.getShopPanel().getRemoveButtons());
+	}
+	
+	public List<Button> getShopPurchaseButtons() {
+		return Arrays.asList(shop.getShopPanel().getConfirmButtons());
+	}
+
+	public void shopChangeAmount(int amount, int item) {
+		shop.changeAmount(amount, item);
+	}	
 }

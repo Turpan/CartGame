@@ -84,4 +84,12 @@ public class TownBottomBar extends Container {
 	public Button getShopButton() {
 		return shopButton;
 	}
+	
+	public Button getLeaveButton() {
+		return leaveButton;
+	}
+	
+	public void setShopEnabled(boolean enabled) {
+		shopButton.setInteractable(enabled);
+	}
 }

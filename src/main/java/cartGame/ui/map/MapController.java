@@ -1,16 +1,23 @@
 package cartGame.ui.map;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import amyGLGraphics.IO.MouseEvent;
+import amyGLGraphics.IO.MouseEventAction;
 import amyInterface.Button;
 import amyInterface.Component;
 import amyInterface.InterfaceController;
 
 public class MapController extends InterfaceController {
-	String travelRequest;
+	private String travelRequest;
 	
-	boolean backPressed;
+	private boolean backPressed;
+	private boolean destinationExpected;
 	
-	MapUI ui;
+	private MapUI ui;
+	
+	private List<MapListener> listeners = new ArrayList<MapListener>();
 
 	public MapController() {
 		super();
@@ -23,9 +30,19 @@ public class MapController extends InterfaceController {
 		this.travelRequest = travelRequest;
 	}
 	
+	public void addListener(MapListener listener) {
+		listeners.add(listener);
+	}
+	
+	public void destinationRequired() {
+		destinationExpected = true;
+	}
+	
 	public boolean isBackPressed() {
 		boolean bool = backPressed;
 		backPressed = false;
+		
+		if(bool == true) destinationExpected = false;
 		return bool;
 	}
 	
@@ -48,15 +65,21 @@ public class MapController extends InterfaceController {
 			return clickSource;
 		}
 		
-		if (clickSource == ui.getBackButton()) {
+		if (clickSource == ui.getBackButton() && event.getMouseAction() == MouseEventAction.PRESS) {
 			backPressed = true;
 		}
 		
-		if (clickSource instanceof TownButton) {
-			Button button = (Button) clickSource;
-			
-			String townID = ui.getButtonID(button);
-			setTravelRequest(townID);
+		if (clickSource instanceof TownButton && event.getMouseAction() == MouseEventAction.PRESS) {
+			if (destinationExpected) {
+				Button button = (Button) clickSource;
+				
+				String townID = ui.getButtonID(button);
+				setTravelRequest(townID);
+				
+				destinationExpected = false;
+				
+				for (MapListener listener : listeners) listener.destinationSelected();
+			}
 		}
 		
 		return clickSource;
